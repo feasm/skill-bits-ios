@@ -1,14 +1,12 @@
 import AVFoundation
-import Observation
 
-@Observable
-public final class AudioPlayerViewModel {
-    public var isPlaying = false
-    public var isLoading = false
-    public var currentTime: TimeInterval = 0
-    public var duration: TimeInterval = 0
-    public var speed: Float = 1.0
-    public private(set) var usesStreaming = false
+public final class AudioPlayerViewModel: ObservableObject {
+    @Published public var isPlaying = false
+    @Published public var isLoading = false
+    @Published public var currentTime: TimeInterval = 0
+    @Published public var duration: TimeInterval = 0
+    @Published public var speed: Float = 1.0
+    @Published public private(set) var usesStreaming = false
 
     public var progress: Double {
         guard duration > 0 else { return 0 }

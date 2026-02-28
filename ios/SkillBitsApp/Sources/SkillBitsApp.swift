@@ -4,7 +4,7 @@ import SkillBitsDesignSystem
 
 @main
 struct SkillBitsApp: App {
-    @State private var session = AppSession()
+    @StateObject private var session = AppSession()
     private let env = AppEnvironment()
 
     private enum AppPhase: Equatable {

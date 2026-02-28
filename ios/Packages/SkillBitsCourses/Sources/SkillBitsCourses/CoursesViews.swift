@@ -1,16 +1,14 @@
 import SwiftUI
-import Observation
 import SkillBitsCore
 import SkillBitsDesignSystem
 
-@Observable
-public final class CoursesViewModel {
-    public var courses: [Course] = []
-    public var search = ""
-    public var selectedFilter = "Todos"
-    public var isLoading = false
-    public var loadError = false
-    public var onboardingReason: String?
+public final class CoursesViewModel: ObservableObject {
+    @Published public var courses: [Course] = []
+    @Published public var search = ""
+    @Published public var selectedFilter = "Todos"
+    @Published public var isLoading = false
+    @Published public var loadError = false
+    @Published public var onboardingReason: String?
     private var hasLoadedOnce = false
     private var lastLoadedAt: Date?
     private let refreshInterval: TimeInterval = 300
@@ -106,7 +104,7 @@ public final class CoursesViewModel {
 }
 
 public struct CoursesView: View {
-    @Bindable var viewModel: CoursesViewModel
+    @ObservedObject var viewModel: CoursesViewModel
     let openCourse: (Course) -> Void
     @State private var animateIn = false
 

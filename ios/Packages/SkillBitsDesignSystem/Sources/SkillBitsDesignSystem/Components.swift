@@ -505,7 +505,7 @@ public struct SBAnimatedCounter: View {
                     current = Double(target)
                 }
             }
-            .onChange(of: target) { _, newValue in
+            .sbOnChange(of: target) { newValue in
                 current = 0
                 withAnimation(.easeOut(duration: 0.8)) {
                     current = Double(newValue)

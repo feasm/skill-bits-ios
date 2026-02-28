@@ -1,7 +1,7 @@
 name: SkillBits
 options:
   deploymentTarget:
-    iOS: 17.0
+    iOS: 16.4
 packages:
   SkillBitsCore:
     path: Packages/SkillBitsCore

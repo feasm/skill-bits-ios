@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,7 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0617E478D9DB0C220D614EEB /* SkillBitsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkillBitsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0617E478D9DB0C220D614EEB /* SkillBitsApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SkillBitsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D3A415EBB5DACB5C87D4B15 /* SkillBitsCourses */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsCourses; path = Packages/SkillBitsCourses; sourceTree = SOURCE_ROOT; };
 		0DE0CC70F18559C13F6B3C65 /* RouterModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterModels.swift; sourceTree = "<group>"; };
 		2161A6EBF13ECC7C583567BB /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -168,6 +168,12 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					30910DC3F57544D9981D796C = {
+						DevelopmentTeam = 8E3BBC4A3W;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 2C515B758A4020B1EA4B74F5 /* Build configuration list for PBXProject "SkillBits" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -194,6 +200,7 @@
 				9A778020D8C0801398CC00DC /* XCLocalSwiftPackageReference "Packages/SkillBitsQuiz" */,
 				11EFE3DC86508350733D3480 /* XCLocalSwiftPackageReference "Packages/SkillBitsSupabase" */,
 			);
+			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -287,7 +294,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 4XWMMXB4KD;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8E3BBC4A3W;
 				INFOPLIST_FILE = SkillBitsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -304,7 +312,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 4XWMMXB4KD;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8E3BBC4A3W;
 				INFOPLIST_FILE = SkillBitsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

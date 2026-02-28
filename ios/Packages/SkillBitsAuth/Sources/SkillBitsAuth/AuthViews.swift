@@ -1,15 +1,13 @@
 import SwiftUI
-import Observation
 import SkillBitsCore
 import SkillBitsDesignSystem
 
-@Observable
-public final class LoginViewModel {
-    public var email = ""
-    public var password = ""
-    public var loading = false
-    public var errorMessage: String?
-    public var isSignUp = false
+public final class LoginViewModel: ObservableObject {
+    @Published public var email = ""
+    @Published public var password = ""
+    @Published public var loading = false
+    @Published public var errorMessage: String?
+    @Published public var isSignUp = false
     private let repo: AuthRepository
 
     public init(repo: AuthRepository) { self.repo = repo }
@@ -41,7 +39,7 @@ public final class LoginViewModel {
 }
 
 public struct LoginView: View {
-    @Bindable var viewModel: LoginViewModel
+    @ObservedObject var viewModel: LoginViewModel
     let onLoginSuccess: () -> Void
     @State private var showPassword = false
     @State private var animateIn = false
@@ -183,10 +181,9 @@ public struct LoginView: View {
     }
 }
 
-@Observable
-public final class OnboardingViewModel {
-    public var selectedReason = ""
-    public var dailyGoal: DailyGoal = .minutes15
+public final class OnboardingViewModel: ObservableObject {
+    @Published public var selectedReason = ""
+    @Published public var dailyGoal: DailyGoal = .minutes15
     private let repo: AuthRepository
 
     public init(repo: AuthRepository) { self.repo = repo }
@@ -200,7 +197,7 @@ public final class OnboardingViewModel {
 }
 
 public struct OnboardingView: View {
-    @Bindable var viewModel: OnboardingViewModel
+    @ObservedObject var viewModel: OnboardingViewModel
     let onFinish: () -> Void
     @State private var selectedGoalIndex = 0
 

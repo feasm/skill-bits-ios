@@ -1,11 +1,9 @@
 import SwiftUI
-import Observation
 import SkillBitsCore
 import SkillBitsDesignSystem
 
-@Observable
-public final class PaywallViewModel {
-    public var isLoading = false
+public final class PaywallViewModel: ObservableObject {
+    @Published public var isLoading = false
     private let repo: PaywallRepository
 
     public init(repo: PaywallRepository) { self.repo = repo }
@@ -34,7 +32,7 @@ public final class PaywallViewModel {
 }
 
 public struct PaywallView: View {
-    @Bindable var viewModel: PaywallViewModel
+    @ObservedObject var viewModel: PaywallViewModel
     public let onSuccess: () -> Void
     @Environment(\.dismiss) private var dismiss
     @State private var animateIn = false

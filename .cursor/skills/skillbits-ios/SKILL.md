@@ -39,7 +39,7 @@ Este skill deve trabalhar junto com:
 
 ### Novo package de feature
 
-1. Criar package iOS 17+ em `ios/Packages/<FeatureName>`.
+1. Criar package iOS 16+ em `ios/Packages/<FeatureName>`.
 2. Adicionar dependencia minima de `SkillBitsCore` e `SkillBitsDesignSystem`.
 3. Registrar package em `ios/project.yml`.
 4. Adicionar package ao target `SkillBitsApp` em `ios/project.yml`.
@@ -60,10 +60,12 @@ Este skill deve trabalhar junto com:
 
 ### Nova tela ou fluxo
 
-- Preferir `@Observable` para ViewModel e injecao de repositorio via init.
+- Usar `ObservableObject` + `@Published` para ViewModel e injecao de repositorio via init.
+- Em view, usar `@StateObject` para VMs que a view cria e `@ObservedObject` para VMs recebidas.
 - Em view, receber dados e closures de acao explicitamente.
 - Respeitar padrao de navegacao central em `ios/SkillBitsApp/Sources/MainTabView.swift`.
-- Usar `navigationDestination` para push e `sheet/fullScreenCover` para modal.
+- Usar `sbNavigationDestination` para push e `sheet/fullScreenCover` para modal.
+- Usar `sbOnChange` em vez de `.onChange` para compatibilidade iOS 16.4/17.
 - Se envolver conteudo premium, validar fluxo com `PremiumGateState`.
 
 ## Design system (uso obrigatorio)
@@ -115,10 +117,20 @@ Para decisoes arquiteturais ou de produto com impacto duradouro, registrar em:
 - `docs/decisions/YYYY-MM-DD-<tema>.md`
 - usando `docs/decisions/_template.md`
 
+## Helpers de compatibilidade (uso obrigatorio)
+
+Arquivo: `ios/Packages/SkillBitsDesignSystem/.../Compatibility.swift`
+
+- `sbOnChange(of:perform:)` - substitui `.onChange` com suporte iOS 16.4 e iOS 17+
+- `sbNavigationDestination(item:destination:)` - polyfill para `navigationDestination(item:)` do iOS 17
+- `SBUnevenRoundedRectangle` - substitui `UnevenRoundedRectangle` com fallback para iOS 16
+
 ## Snapshot atual do projeto
 
 - Monorepo iOS com XcodeGen (`ios/project.yml`)
-- iOS 17+
+- iOS 16.4+ (deployment target)
+- Packages SPM: iOS 16+
+- ViewModels usam `ObservableObject` + `@Published`
 - Backend principal em Supabase
 - Paywall com partes ainda mockadas
 - Navegacao centralizada no app shell (`SkillBitsApp` + `MainTabView`)
@@ -131,3 +143,6 @@ Para decisoes arquiteturais ou de produto com impacto duradouro, registrar em:
 - Introduzir token visual fora do DesignSystem sem necessidade real.
 - Alterar fluxo de navegacao sem validar os modais encadeados de quiz/paywall.
 - Implementar feature sem atualizar documentacao.
+- Usar `@Observable`/`@Bindable` diretamente (usar `ObservableObject`/`@ObservedObject`).
+- Usar `.onChange` diretamente (usar `sbOnChange`).
+- Usar `navigationDestination(item:)` diretamente (usar `sbNavigationDestination`).

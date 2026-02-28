@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "SkillBitsCourses",
-    platforms: [.iOS(.v17)],
+    platforms: [.iOS(.v16)],
     products: [.library(name: "SkillBitsCourses", targets: ["SkillBitsCourses"])],
     dependencies: [
         .package(path: "../SkillBitsCore"),

@@ -1,12 +1,10 @@
 import SwiftUI
 import AVFoundation
-import Observation
 import SkillBitsCore
 import SkillBitsDesignSystem
 
-@Observable
-public final class LessonViewModel {
-    public var lessonContent: LessonContent?
+public final class LessonViewModel: ObservableObject {
+    @Published public var lessonContent: LessonContent?
     private let repo: LessonRepository
 
     public init(repo: LessonRepository) { self.repo = repo }
@@ -26,8 +24,8 @@ public final class LessonViewModel {
 }
 
 public struct LessonReaderView: View {
-    @State private var viewModel: LessonViewModel
-    @State private var audioPlayer = AudioPlayerViewModel()
+    @StateObject private var viewModel: LessonViewModel
+    @StateObject private var audioPlayer = AudioPlayerViewModel()
     public let courseId: String
     public let moduleId: String
     public let lesson: Lesson
@@ -43,7 +41,7 @@ public struct LessonReaderView: View {
     @Environment(\.dismiss) private var dismiss
 
     public init(repo: LessonRepository, courseId: String, moduleId: String, lesson: Lesson, onClose: (() -> Void)? = nil, onComplete: @escaping () -> Void, onStartQuiz: @escaping () -> Void) {
-        self._viewModel = State(initialValue: LessonViewModel(repo: repo))
+        self._viewModel = StateObject(wrappedValue: LessonViewModel(repo: repo))
         self.courseId = courseId
         self.moduleId = moduleId
         self.lesson = lesson

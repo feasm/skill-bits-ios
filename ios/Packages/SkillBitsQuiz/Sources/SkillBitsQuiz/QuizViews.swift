@@ -1,23 +1,21 @@
 import SwiftUI
-import Observation
 import SkillBitsCore
 import SkillBitsDesignSystem
 
-@Observable
-public final class QuizViewModel {
-    public var questions: [QuizQuestion] = []
-    public var currentIndex = 0
-    public var selectedAnswer: Int?
-    public var confirmedAnswers: [Int] = []
-    public var result: QuizResult?
-    public var isLoading = false
-    public var isSubmitting = false
-    public var loadErrorMessage: String?
-    public var submitErrorMessage: String?
-    public var showInstantFeedback = false
-    public var wasLastCorrect = false
-    public var confirmedCurrent = false
-    public var quizFirst = false
+public final class QuizViewModel: ObservableObject {
+    @Published public var questions: [QuizQuestion] = []
+    @Published public var currentIndex = 0
+    @Published public var selectedAnswer: Int?
+    @Published public var confirmedAnswers: [Int] = []
+    @Published public var result: QuizResult?
+    @Published public var isLoading = false
+    @Published public var isSubmitting = false
+    @Published public var loadErrorMessage: String?
+    @Published public var submitErrorMessage: String?
+    @Published public var showInstantFeedback = false
+    @Published public var wasLastCorrect = false
+    @Published public var confirmedCurrent = false
+    @Published public var quizFirst = false
     private let repo: QuizRepository
     private var moduleId = ""
 
@@ -231,7 +229,7 @@ public struct QuizIntroView: View {
             .padding(.bottom, 24)
         }
         .clipShape(
-            UnevenRoundedRectangle(
+            SBUnevenRoundedRectangle(
                 bottomLeadingRadius: 28,
                 bottomTrailingRadius: 28
             )
@@ -371,7 +369,7 @@ public struct QuizIntroView: View {
 }
 
 public struct QuizQuestionView: View {
-    @State private var viewModel: QuizViewModel
+    @StateObject private var viewModel: QuizViewModel
     private let moduleId: String
     private let quizFirst: Bool
     public let onExit: () -> Void
@@ -379,7 +377,7 @@ public struct QuizQuestionView: View {
     @State private var showExitConfirmation = false
 
     public init(repo: QuizRepository, moduleId: String, quizFirst: Bool, onExit: @escaping () -> Void = {}, onFinish: @escaping (QuizResult) -> Void) {
-        self._viewModel = State(initialValue: QuizViewModel(repo: repo))
+        self._viewModel = StateObject(wrappedValue: QuizViewModel(repo: repo))
         self.moduleId = moduleId
         self.quizFirst = quizFirst
         self.onExit = onExit
@@ -505,7 +503,7 @@ public struct QuizQuestionView: View {
         } message: {
             Text("Seu progresso atual sera perdido.")
         }
-        .onChange(of: viewModel.result) { _, newValue in
+        .sbOnChange(of: viewModel.result) { newValue in
             if let newValue { onFinish(newValue) }
         }
     }

@@ -50,6 +50,7 @@ Legenda de status:
 | Home | Study Hub (Meus estudos) | Completo | Empty state orientado, Continuar agora, Em andamento, Recomendacoes, Consistencia |
 | Qualidade | Politica de refresh por TTL nas tabs | Completo | Evita refetch a cada troca de tab; refresh forcado por acao do usuario e pull-to-refresh |
 | Navegacao | Fluxo de curso como modal isolado | Completo | fullScreenCover com NavigationStack propria; botao X para fechar fluxo; back entre niveis |
+| Plataforma | Suporte iOS 16.4+ | Completo | Deployment target rebaixado de iOS 17 para iOS 16.4; polyfills para onChange, navigationDestination(item:) e UnevenRoundedRectangle |
 
 ## Governanca por skills (skillbits-ios)
 

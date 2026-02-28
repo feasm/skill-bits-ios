@@ -1,17 +1,15 @@
 import SwiftUI
 import Charts
-import Observation
 import SkillBitsCore
 import SkillBitsDesignSystem
 import SkillBitsGamification
 
-@Observable
-public final class ProgressViewModel {
-    public var progress = UserProgress(xp: 0, streakDays: 0, dailyGoal: .minutes15, studiedMinutesToday: 0, badges: [])
-    public var courses: [Course] = []
-    public var weeklyStudy: [WeeklyStudyDay] = []
-    public var isLoading = false
-    public var loadError = false
+public final class ProgressViewModel: ObservableObject {
+    @Published public var progress = UserProgress(xp: 0, streakDays: 0, dailyGoal: .minutes15, studiedMinutesToday: 0, badges: [])
+    @Published public var courses: [Course] = []
+    @Published public var weeklyStudy: [WeeklyStudyDay] = []
+    @Published public var isLoading = false
+    @Published public var loadError = false
     private var hasLoadedOnce = false
     private var lastLoadedAt: Date?
     private let refreshInterval: TimeInterval = 300
@@ -77,7 +75,7 @@ public final class ProgressViewModel {
 }
 
 public struct ProgressScreenView: View {
-    @Bindable var viewModel: ProgressViewModel
+    @ObservedObject var viewModel: ProgressViewModel
     @State private var animateIn = false
     @State private var selectedDate: String = {
         let f = DateFormatter()

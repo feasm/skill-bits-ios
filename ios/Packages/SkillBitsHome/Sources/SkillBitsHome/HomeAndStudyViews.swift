@@ -1,16 +1,14 @@
 import SwiftUI
-import Observation
 import SkillBitsCore
 import SkillBitsDesignSystem
 import SkillBitsGamification
 
-@Observable
-public final class HomeViewModel {
-    public var progress = UserProgress(xp: 0, streakDays: 0, dailyGoal: .minutes15, studiedMinutesToday: 0, badges: [])
-    public var courses: [Course] = []
-    public var userName: String
-    public var isLoading = false
-    public var loadError = false
+public final class HomeViewModel: ObservableObject {
+    @Published public var progress = UserProgress(xp: 0, streakDays: 0, dailyGoal: .minutes15, studiedMinutesToday: 0, badges: [])
+    @Published public var courses: [Course] = []
+    @Published public var userName: String
+    @Published public var isLoading = false
+    @Published public var loadError = false
     private var hasLoadedOnce = false
     private var lastLoadedAt: Date?
     private let refreshInterval: TimeInterval = 300
@@ -92,7 +90,7 @@ public final class HomeViewModel {
 }
 
 public struct HomeView: View {
-    @Bindable var viewModel: HomeViewModel
+    @ObservedObject var viewModel: HomeViewModel
     public let openCourse: (Course) -> Void
     public let openNextLesson: (Course, Lesson) -> Void
     @State private var appeared = false

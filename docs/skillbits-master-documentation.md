@@ -37,6 +37,13 @@ Este indice consolida a documentacao funcional e de produto do SkillBits para fa
 
 ## Decisoes recentes de UX/performance
 
+- **Migracao iOS 16.4 - 2026-02-28**
+  - Deployment target rebaixado de iOS 17 para iOS 16.4 para ampliar base de usuarios.
+  - ViewModels migrados de @Observable para ObservableObject + @Published.
+  - Polyfills criados em DesignSystem/Compatibility.swift: sbOnChange, sbNavigationDestination, SBUnevenRoundedRectangle.
+  - Codigo iOS 17 preservado via `if #available` nos polyfills.
+  - Decisao detalhada em `docs/decisions/2026-02-28-ios-16-4-migration.md`.
+
 - **Study Hub (Meus estudos) - 2026-02-28**
   - Tab evoluida de lista simples para Study Hub orientado a acao.
   - Estados claros: loading, erro, vazio (com CTA), com progresso (secoes).

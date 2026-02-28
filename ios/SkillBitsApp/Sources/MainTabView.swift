@@ -1,5 +1,4 @@
 import SwiftUI
-import Observation
 import SkillBitsCore
 import SkillBitsAuth
 import SkillBitsCourses
@@ -12,21 +11,21 @@ import SkillBitsHome
 import SkillBitsDesignSystem
 
 struct MainTabView: View {
-    @Bindable var session: AppSession
+    @ObservedObject var session: AppSession
     let env: AppEnvironment
 
-    @State private var coursesViewModel: CoursesViewModel
-    @State private var progressViewModel: ProgressViewModel
-    @State private var profileViewModel: ProfileViewModel
+    @StateObject private var coursesViewModel: CoursesViewModel
+    @StateObject private var progressViewModel: ProgressViewModel
+    @StateObject private var profileViewModel: ProfileViewModel
     @State private var selectedTab: TabItem = .courses
     @State private var selectedCourse: Course?
 
     init(session: AppSession, env: AppEnvironment) {
         self.session = session
         self.env = env
-        _coursesViewModel = State(initialValue: CoursesViewModel(repo: env.coursesRepository, onboardingReason: session.onboardingReason))
-        _progressViewModel = State(initialValue: ProgressViewModel(repo: env.progressRepository, coursesRepo: env.coursesRepository))
-        _profileViewModel = State(initialValue: ProfileViewModel(repo: env.progressRepository, onboardingReason: session.onboardingReason))
+        _coursesViewModel = StateObject(wrappedValue: CoursesViewModel(repo: env.coursesRepository, onboardingReason: session.onboardingReason))
+        _progressViewModel = StateObject(wrappedValue: ProgressViewModel(repo: env.progressRepository, coursesRepo: env.coursesRepository))
+        _profileViewModel = StateObject(wrappedValue: ProfileViewModel(repo: env.progressRepository, onboardingReason: session.onboardingReason))
     }
 
     var body: some View {
@@ -72,10 +71,10 @@ struct MainTabView: View {
                 onRefreshDashboards: { refreshDashboardsAfterLearningAction() }
             )
         }
-        .onChange(of: selectedTab) { _, _ in
+        .sbOnChange(of: selectedTab) {
             SBHaptics.selection()
         }
-        .onChange(of: session.onboardingReason) { _, newValue in
+        .sbOnChange(of: session.onboardingReason) { newValue in
             coursesViewModel.onboardingReason = newValue
             profileViewModel.onboardingReason = newValue
         }
@@ -99,7 +98,7 @@ private struct CourseFlowView: View {
     @State private var pendingQuizResult: QuizResult?
     @State private var nextLessonState: NextLessonState?
     @State private var pendingNextLesson: LessonNavItem?
-    @State private var premiumGate = PremiumGateState()
+    @StateObject private var premiumGate = PremiumGateState()
     @State private var showPaywall = false
     @State private var showPurchaseSuccess = false
     @State private var reviewPoints: [GuidedReviewPoint] = []
@@ -127,7 +126,7 @@ private struct CourseFlowView: View {
                     }
                 }
             )
-            .navigationDestination(item: $activeModule) { nav in
+            .sbNavigationDestination(item: $activeModule) { nav in
                 ModuleDetailView(
                     course: nav.course,
                     module: nav.module,
@@ -144,7 +143,7 @@ private struct CourseFlowView: View {
                     }
                 )
             }
-            .navigationDestination(item: $activeLesson) { nav in
+            .sbNavigationDestination(item: $activeLesson) { nav in
                 LessonReaderView(
                     repo: env.lessonRepository,
                     courseId: nav.courseId,

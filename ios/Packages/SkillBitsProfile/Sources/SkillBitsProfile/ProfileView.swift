@@ -1,17 +1,15 @@
 import SwiftUI
-import Observation
 import SkillBitsCore
 import SkillBitsDesignSystem
 import SkillBitsGamification
 
-@Observable
-public final class ProfileViewModel {
-    public var userName: String
-    public var userEmail: String
-    public var progress = UserProgress(xp: 0, streakDays: 0, dailyGoal: .minutes15, studiedMinutesToday: 0, badges: [])
-    public var isLoading = false
-    public var loadError = false
-    public var onboardingReason: String?
+public final class ProfileViewModel: ObservableObject {
+    @Published public var userName: String
+    @Published public var userEmail: String
+    @Published public var progress = UserProgress(xp: 0, streakDays: 0, dailyGoal: .minutes15, studiedMinutesToday: 0, badges: [])
+    @Published public var isLoading = false
+    @Published public var loadError = false
+    @Published public var onboardingReason: String?
     private var hasLoadedOnce = false
     private var lastLoadedAt: Date?
     private let refreshInterval: TimeInterval = 300
@@ -78,7 +76,7 @@ public final class ProfileViewModel {
 }
 
 public struct ProfileScreenView: View {
-    @Bindable var viewModel: ProfileViewModel
+    @ObservedObject var viewModel: ProfileViewModel
     public let onLogout: () -> Void
     @State private var animateIn = false
     @State private var path: [ProfileDestination] = []

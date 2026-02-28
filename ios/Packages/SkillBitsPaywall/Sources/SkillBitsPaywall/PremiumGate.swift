@@ -1,14 +1,12 @@
 import SwiftUI
-import Observation
 import SkillBitsCore
 import SkillBitsDesignSystem
 
 // MARK: - Coordinator
 
-@Observable
-public final class PremiumGateState {
-    public var isPresented = false
-    public var contextTitle: String?
+public final class PremiumGateState: ObservableObject {
+    @Published public var isPresented = false
+    @Published public var contextTitle: String?
     private var pendingAction: (() -> Void)?
     private var paywallAction: (() -> Void)?
 
@@ -199,7 +197,7 @@ public struct PremiumGateSheet: View {
 // MARK: - View Modifier
 
 public struct PremiumGateOverlay: ViewModifier {
-    @Bindable var gate: PremiumGateState
+    @ObservedObject var gate: PremiumGateState
     let openPaywall: () -> Void
 
     public func body(content: Content) -> some View {

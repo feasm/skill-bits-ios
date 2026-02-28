@@ -1,13 +1,11 @@
 import Foundation
-import Observation
 import SkillBitsCore
 import SkillBitsSupabase
 
-@Observable
-final class AppSession {
-    var isLoggedIn = false
-    var onboardingCompleted = false
-    var onboardingReason: String?
+final class AppSession: ObservableObject {
+    @Published var isLoggedIn = false
+    @Published var onboardingCompleted = false
+    @Published var onboardingReason: String?
 
     func observeAuthState(manager: SupabaseManager?, progressRepo: ProgressRepository?) {
         guard let manager else { return }
