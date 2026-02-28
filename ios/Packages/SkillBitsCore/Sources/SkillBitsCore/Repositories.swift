@@ -37,6 +37,7 @@ public protocol QuizRepository: Sendable {
 public protocol ProgressRepository: Sendable {
     func fetchProgress() async throws -> UserProgress
     func saveProgress(_ progress: UserProgress) async throws
+    func fetchWeeklyStudy() async throws -> [WeeklyStudyDay]
 }
 
 public protocol PaywallRepository: Sendable {

@@ -11,7 +11,8 @@ public actor MockBackendService {
         badges: [
             Badge(id: "b1", name: "Primeiro Passo", icon: "🚀", unlocked: true),
             Badge(id: "b2", name: "Quiz Master", icon: "⚡", unlocked: false)
-        ]
+        ],
+        onboardingReason: "carreira"
     )
 
     // MARK: - Courses
@@ -568,6 +569,21 @@ public actor MockBackendService {
     public func saveProgress(_ value: UserProgress) { progress = value }
     public func setPremium(_ enabled: Bool) { premiumEnabled = enabled }
     public func isPremium() -> Bool { premiumEnabled }
+
+    public func fetchWeeklyStudy() -> [WeeklyStudyDay] {
+        let calendar = Calendar.current
+        let today = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let sampleMinutes = [12, 18, 24, 0, 26, 8, 20]
+
+        return (0..<7).map { offset in
+            let daysAgo = 6 - offset
+            let date = calendar.date(byAdding: .day, value: -daysAgo, to: today)!
+            let minutes = daysAgo == 0 ? progress.studiedMinutesToday : sampleMinutes[offset]
+            return WeeklyStudyDay(studyDate: formatter.string(from: date), minutes: minutes)
+        }
+    }
 
     // MARK: - Helpers
 

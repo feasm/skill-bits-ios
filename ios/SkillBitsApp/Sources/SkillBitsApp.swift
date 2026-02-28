@@ -50,7 +50,7 @@ struct SkillBitsApp: App {
             }
             .animation(SBMotion.springSmooth, value: phase)
             .onAppear {
-                session.observeAuthState(manager: env.supabaseManager)
+                session.observeAuthState(manager: env.supabaseManager, progressRepo: env.progressRepository)
             }
         }
     }

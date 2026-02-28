@@ -270,11 +270,13 @@ public struct SBNavBar: View {
     let title: String
     let subtitle: String?
     let onBack: (() -> Void)?
+    let onClose: (() -> Void)?
 
-    public init(title: String, subtitle: String? = nil, onBack: (() -> Void)? = nil) {
+    public init(title: String, subtitle: String? = nil, onBack: (() -> Void)? = nil, onClose: (() -> Void)? = nil) {
         self.title = title
         self.subtitle = subtitle
         self.onBack = onBack
+        self.onClose = onClose
     }
 
     public var body: some View {
@@ -301,6 +303,17 @@ public struct SBNavBar: View {
                 }
             }
             Spacer()
+            if let onClose {
+                Button(action: onClose) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundStyle(SBColor.textSecondary)
+                        .frame(width: 38, height: 38)
+                        .background(SBColor.background)
+                        .overlay(RoundedRectangle(cornerRadius: 12).stroke(SBColor.border))
+                }
+                .buttonStyle(.plain)
+            }
         }
     }
 }
@@ -668,6 +681,77 @@ public struct SBLoadingState: View {
     }
 }
 
+public struct SBShimmerModifier: ViewModifier {
+    let active: Bool
+    @State private var offsetX: CGFloat = -1
+
+    public func body(content: Content) -> some View {
+        content
+            .overlay {
+                if active {
+                    GeometryReader { geo in
+                        LinearGradient(
+                            colors: [
+                                .clear,
+                                Color.white.opacity(0.38),
+                                .clear
+                            ],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                        .frame(width: geo.size.width * 0.9)
+                        .offset(x: geo.size.width * offsetX)
+                    }
+                    .mask(content)
+                }
+            }
+            .onAppear {
+                guard active else { return }
+                withAnimation(.linear(duration: 1.05).repeatForever(autoreverses: false)) {
+                    offsetX = 1.3
+                }
+            }
+    }
+}
+
+public struct SBSkeletonBlock: View {
+    let width: CGFloat?
+    let height: CGFloat
+    let cornerRadius: CGFloat
+
+    public init(width: CGFloat? = nil, height: CGFloat, cornerRadius: CGFloat = 10) {
+        self.width = width
+        self.height = height
+        self.cornerRadius = cornerRadius
+    }
+
+    public var body: some View {
+        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+            .fill(SBColor.border.opacity(0.34))
+            .frame(width: width, height: height)
+            .sbShimmer()
+            .accessibilityHidden(true)
+    }
+}
+
+public struct SBSkeletonCard: View {
+    public init() {}
+
+    public var body: some View {
+        SBCard {
+            HStack(alignment: .top, spacing: 12) {
+                SBSkeletonBlock(width: 48, height: 48, cornerRadius: 12)
+                VStack(alignment: .leading, spacing: 8) {
+                    SBSkeletonBlock(width: 150, height: 14, cornerRadius: 7)
+                    SBSkeletonBlock(height: 12, cornerRadius: 6)
+                    SBSkeletonBlock(width: 120, height: 12, cornerRadius: 6)
+                }
+                Spacer()
+            }
+        }
+    }
+}
+
 public struct SBErrorState: View {
     let title: String
     let message: String
@@ -710,6 +794,10 @@ public struct SBErrorState: View {
 }
 
 public extension View {
+    func sbShimmer(active: Bool = true) -> some View {
+        modifier(SBShimmerModifier(active: active))
+    }
+
     @ViewBuilder
     func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
         if condition {

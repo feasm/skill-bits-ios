@@ -23,12 +23,14 @@ public struct SupabaseProgressRepository: ProgressRepository, Sendable {
             let dailyGoal: String
             let studiedMinutesToday: Int
             let badges: [BadgeDTO]
+            let onboardingReason: String?
 
             enum CodingKeys: String, CodingKey {
                 case xp, badges
                 case streakDays = "streak_days"
                 case dailyGoal = "daily_goal"
                 case studiedMinutesToday = "studied_minutes_today"
+                case onboardingReason = "onboarding_reason"
             }
         }
 
@@ -45,8 +47,19 @@ public struct SupabaseProgressRepository: ProgressRepository, Sendable {
             streakDays: dto.streakDays,
             dailyGoal: dto.dailyGoal == "minutes30" ? .minutes30 : .minutes15,
             studiedMinutesToday: dto.studiedMinutesToday,
-            badges: dto.badges.map { Badge(id: $0.id, name: $0.name, icon: $0.icon, unlocked: $0.unlocked) }
+            badges: dto.badges.map { Badge(id: $0.id, name: $0.name, icon: $0.icon, unlocked: $0.unlocked) },
+            onboardingReason: dto.onboardingReason
         )
+    }
+
+    public func fetchWeeklyStudy() async throws -> [WeeklyStudyDay] {
+        struct DayDTO: Decodable {
+            let study_date: String
+            let minutes: Int
+        }
+
+        let dtos: [DayDTO] = try await client.rpc("get_weekly_study").execute().value
+        return dtos.map { WeeklyStudyDay(studyDate: $0.study_date, minutes: $0.minutes) }
     }
 
     public func saveProgress(_ progress: UserProgress) async throws {

@@ -37,12 +37,19 @@ targets:
       - path: SkillBitsApp/Sources
         excludes:
           - "Secrets.example.swift"
+    info:
+      path: SkillBitsApp/Info.plist
+      properties:
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        UILaunchScreen: {}
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.skillbits.app
-        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
-        INFOPLIST_KEY_UILaunchScreen_Generation: YES
-        GENERATE_INFOPLIST_FILE: YES
+        DEVELOPMENT_TEAM: 8E3BBC4A3W
+        CODE_SIGN_STYLE: Automatic
     dependencies:
       - package: SkillBitsCore
       - package: SkillBitsDesignSystem

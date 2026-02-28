@@ -126,12 +126,14 @@ public struct LessonContent: Codable, Hashable, Sendable {
     public let title: String
     public let readTime: String
     public let content: [LessonBlock]
+    public let audioUrl: String?
 
-    public init(lessonId: String, title: String, readTime: String, content: [LessonBlock]) {
+    public init(lessonId: String, title: String, readTime: String, content: [LessonBlock], audioUrl: String? = nil) {
         self.lessonId = lessonId
         self.title = title
         self.readTime = readTime
         self.content = content
+        self.audioUrl = audioUrl
     }
 }
 
@@ -203,18 +205,31 @@ public struct Badge: Identifiable, Codable, Hashable, Sendable {
     }
 }
 
+public struct WeeklyStudyDay: Codable, Hashable, Sendable, Identifiable {
+    public let studyDate: String
+    public let minutes: Int
+    public var id: String { studyDate }
+
+    public init(studyDate: String, minutes: Int) {
+        self.studyDate = studyDate
+        self.minutes = minutes
+    }
+}
+
 public struct UserProgress: Codable, Hashable, Sendable {
     public var xp: Int
     public var streakDays: Int
     public var dailyGoal: DailyGoal
     public var studiedMinutesToday: Int
     public var badges: [Badge]
+    public var onboardingReason: String?
 
-    public init(xp: Int, streakDays: Int, dailyGoal: DailyGoal, studiedMinutesToday: Int, badges: [Badge]) {
+    public init(xp: Int, streakDays: Int, dailyGoal: DailyGoal, studiedMinutesToday: Int, badges: [Badge], onboardingReason: String? = nil) {
         self.xp = xp
         self.streakDays = streakDays
         self.dailyGoal = dailyGoal
         self.studiedMinutesToday = studiedMinutesToday
         self.badges = badges
+        self.onboardingReason = onboardingReason
     }
 }

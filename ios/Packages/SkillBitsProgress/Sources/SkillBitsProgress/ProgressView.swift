@@ -9,8 +9,12 @@ import SkillBitsGamification
 public final class ProgressViewModel {
     public var progress = UserProgress(xp: 0, streakDays: 0, dailyGoal: .minutes15, studiedMinutesToday: 0, badges: [])
     public var courses: [Course] = []
+    public var weeklyStudy: [WeeklyStudyDay] = []
     public var isLoading = false
     public var loadError = false
+    private var hasLoadedOnce = false
+    private var lastLoadedAt: Date?
+    private let refreshInterval: TimeInterval = 300
     private let repo: ProgressRepository
     private let coursesRepo: CoursesRepository
 
@@ -19,17 +23,38 @@ public final class ProgressViewModel {
         self.coursesRepo = coursesRepo
     }
 
-    public func load() {
+    public var isInitialLoad: Bool {
+        isLoading && !hasLoadedOnce && progress.xp == 0
+    }
+
+    public var shouldShowBlockingError: Bool {
+        loadError && !hasLoadedOnce && progress.xp == 0
+    }
+
+    public var shouldShowInlineError: Bool {
+        loadError && (hasLoadedOnce || progress.xp > 0)
+    }
+
+    public var isRefreshing: Bool {
+        isLoading && hasLoadedOnce
+    }
+
+    public func load(force: Bool = false) {
+        guard force || shouldFetch else { return }
         isLoading = true
         loadError = false
         Task {
             do {
                 let value = try await repo.fetchProgress()
                 let courseData = (try? await coursesRepo.fetchCourses()) ?? []
+                let weekData = (try? await repo.fetchWeeklyStudy()) ?? []
                 await MainActor.run {
                     self.progress = value
                     self.courses = courseData
+                    self.weeklyStudy = weekData
                     self.isLoading = false
+                    self.hasLoadedOnce = true
+                    self.lastLoadedAt = Date()
                 }
             } catch {
                 await MainActor.run {
@@ -39,37 +64,63 @@ public final class ProgressViewModel {
             }
         }
     }
+
+    public func invalidateCache() {
+        lastLoadedAt = nil
+    }
+
+    private var shouldFetch: Bool {
+        guard hasLoadedOnce else { return true }
+        guard let lastLoadedAt else { return true }
+        return Date().timeIntervalSince(lastLoadedAt) >= refreshInterval
+    }
 }
 
 public struct ProgressScreenView: View {
     @Bindable var viewModel: ProgressViewModel
     @State private var animateIn = false
-    @State private var selectedDay: String = "Sex"
+    @State private var selectedDate: String = {
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd"
+        return f.string(from: Date())
+    }()
 
     private struct WeekBar: Identifiable {
-        let id = UUID()
+        let id: String
         let day: String
         let value: Int
     }
 
-    private var weeklyData: [WeekBar] {
-        [
-            WeekBar(day: "Seg", value: 10),
-            WeekBar(day: "Ter", value: 18),
-            WeekBar(day: "Qua", value: 24),
-            WeekBar(day: "Qui", value: 14),
-            WeekBar(day: "Sex", value: 26),
-            WeekBar(day: "Sab", value: 30),
-            WeekBar(day: "Dom", value: 20)
-        ]
+    private static let dateParser: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd"
+        return f
+    }()
+
+    private static let weekdayNames = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"]
+
+    private static func dayLabel(from dateString: String) -> String {
+        guard let date = dateParser.date(from: dateString) else { return "?" }
+        let weekday = Calendar.current.component(.weekday, from: date)
+        return weekdayNames[weekday - 1]
     }
 
-    private var selectedBar: WeekBar {
-        weeklyData.first(where: { $0.day == selectedDay }) ?? weeklyData[0]
+    private var weeklyBars: [WeekBar] {
+        viewModel.weeklyStudy.map { entry in
+            WeekBar(
+                id: entry.studyDate,
+                day: Self.dayLabel(from: entry.studyDate),
+                value: entry.minutes
+            )
+        }
+    }
+
+    private var selectedBar: WeekBar? {
+        weeklyBars.first(where: { $0.id == selectedDate }) ?? weeklyBars.last
     }
 
     private var weekTotal: Int {
-        weeklyData.reduce(0) { $0 + $1.value }
+        weeklyBars.reduce(0) { $0 + $1.value }
     }
 
     private var dailyGoalRatio: Double {
@@ -84,38 +135,64 @@ public struct ProgressScreenView: View {
         ZStack {
             SBColor.background.ignoresSafeArea()
 
-            if viewModel.isLoading && viewModel.progress.xp == 0 {
-                SBLoadingState("Carregando progresso...")
-            } else if viewModel.loadError && viewModel.progress.xp == 0 {
+            if viewModel.isInitialLoad {
+                ProgressSkeletonView()
+                    .transition(.opacity)
+            } else if viewModel.shouldShowBlockingError {
                 SBErrorState(message: "Nao foi possivel carregar seu progresso.") {
-                    viewModel.load()
+                    viewModel.load(force: true)
                 }
+                .transition(.opacity)
             } else {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 14) {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Progresso")
-                                .font(SBFont.display(30))
-                            Text("Você está no ritmo de subir de nível hoje")
-                                .font(SBFont.body(14))
-                                .foregroundStyle(SBColor.textSecondary)
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 14) {
+                        if viewModel.isRefreshing {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                                .transition(.opacity)
                         }
-                        Spacer()
-                        Circle()
-                            .fill(SBColor.purpleBg)
-                            .frame(width: 52, height: 52)
-                            .overlay(
-                                VStack(spacing: 0) {
-                                    Text("Lv")
-                                        .font(SBFont.body(10))
-                                        .foregroundStyle(SBColor.purple)
-                                    Text("\(LevelService.level(for: viewModel.progress.xp))")
-                                        .font(SBFont.stat(16))
-                                        .foregroundStyle(SBColor.purple)
+
+                        if viewModel.shouldShowInlineError {
+                            SBCard {
+                                HStack(spacing: 10) {
+                                    Image(systemName: "wifi.exclamationmark")
+                                        .foregroundStyle(SBColor.error)
+                                    Text("Nao foi possivel atualizar seu progresso agora.")
+                                        .font(SBFont.body(12))
+                                        .foregroundStyle(SBColor.textSecondary)
+                                    Spacer()
+                                    Button("Tentar") { viewModel.load(force: true) }
+                                        .font(SBFont.label(12))
+                                        .buttonStyle(.plain)
+                                        .foregroundStyle(SBColor.accent)
                                 }
-                            )
-                    }
+                            }
+                            .transition(.opacity)
+                        }
+
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Progresso")
+                                    .font(SBFont.display(30))
+                                Text("Você está no ritmo de subir de nível hoje")
+                                    .font(SBFont.body(14))
+                                    .foregroundStyle(SBColor.textSecondary)
+                            }
+                            Spacer()
+                            Circle()
+                                .fill(SBColor.purpleBg)
+                                .frame(width: 52, height: 52)
+                                .overlay(
+                                    VStack(spacing: 0) {
+                                        Text("Lv")
+                                            .font(SBFont.body(10))
+                                            .foregroundStyle(SBColor.purple)
+                                        Text("\(LevelService.level(for: viewModel.progress.xp))")
+                                            .font(SBFont.stat(16))
+                                            .foregroundStyle(SBColor.purple)
+                                    }
+                                )
+                        }
 
                     SBGradientBanner {
                         VStack(alignment: .leading, spacing: 10) {
@@ -177,18 +254,20 @@ public struct ProgressScreenView: View {
                                 Text("Minutos por dia")
                                     .font(SBFont.label(14))
                                 Spacer()
-                                Text("Selecionado: \(selectedBar.day) • \(selectedBar.value) min")
-                                    .font(SBFont.body(12))
-                                    .foregroundStyle(SBColor.textTertiary)
+                                if let selected = selectedBar {
+                                    Text("\(selected.day) • \(selected.value) min")
+                                        .font(SBFont.body(12))
+                                        .foregroundStyle(SBColor.textTertiary)
+                                }
                             }
 
-                            Chart(weeklyData) { bar in
+                            Chart(weeklyBars) { bar in
                                 BarMark(
                                     x: .value("Dia", bar.day),
                                     y: .value("Minutos", animateIn ? bar.value : 0)
                                 )
                                 .foregroundStyle(
-                                    bar.day == selectedDay
+                                    bar.id == selectedDate
                                     ? AnyShapeStyle(
                                         LinearGradient(
                                             colors: [SBColor.purple, SBColor.accent],
@@ -210,41 +289,41 @@ public struct ProgressScreenView: View {
                             .frame(height: 158)
                             .animation(.easeOut(duration: 0.8), value: animateIn)
 
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(spacing: 8) {
-                                    ForEach(weeklyData) { day in
-                                        Button {
-                                            withAnimation(SBMotion.quick) {
-                                                selectedDay = day.day
-                                            }
-                                        } label: {
-                                            Text(day.day)
-                                                .font(SBFont.label(12))
-                                                .foregroundStyle(selectedDay == day.day ? .white : SBColor.textSecondary)
-                                                .padding(.horizontal, 10)
-                                                .padding(.vertical, 6)
-                                                .background(
-                                                    selectedDay == day.day
-                                                    ? AnyShapeStyle(LinearGradient.skillBits)
-                                                    : AnyShapeStyle(SBColor.background)
-                                                )
-                                                .clipShape(Capsule())
+                            HStack(spacing: 8) {
+                                ForEach(weeklyBars) { bar in
+                                    Button {
+                                        withAnimation(SBMotion.quick) {
+                                            selectedDate = bar.id
                                         }
-                                        .buttonStyle(.plain)
+                                    } label: {
+                                        Text(bar.day)
+                                            .font(SBFont.label(12))
+                                            .foregroundStyle(bar.id == selectedDate ? .white : SBColor.textSecondary)
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 6)
+                                            .background(
+                                                bar.id == selectedDate
+                                                ? AnyShapeStyle(LinearGradient.skillBits)
+                                                : AnyShapeStyle(SBColor.background)
+                                            )
+                                            .clipShape(Capsule())
                                     }
+                                    .buttonStyle(.plain)
                                 }
                             }
 
-                            HStack(spacing: 8) {
-                                Image(systemName: "sparkles")
-                                    .foregroundStyle(SBColor.purple)
-                                Text("No dia \(selectedBar.day), você estudou \(selectedBar.value) minutos.")
-                                    .font(SBFont.body(12))
-                                    .foregroundStyle(SBColor.textSecondary)
+                            if let selected = selectedBar {
+                                HStack(spacing: 8) {
+                                    Image(systemName: "sparkles")
+                                        .foregroundStyle(SBColor.purple)
+                                    Text("No dia \(selected.day), voce estudou \(selected.value) minutos.")
+                                        .font(SBFont.body(12))
+                                        .foregroundStyle(SBColor.textSecondary)
+                                }
+                                .padding(10)
+                                .background(SBColor.purpleBg)
+                                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                             }
-                            .padding(10)
-                            .background(SBColor.purpleBg)
-                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
                         }
                     }
 
@@ -350,10 +429,13 @@ public struct ProgressScreenView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 16)
-            }
-            .refreshable { viewModel.load() }
+                }
+                .refreshable { viewModel.load(force: true) }
             }
         }
+        .animation(SBMotion.medium, value: viewModel.isInitialLoad)
+        .animation(SBMotion.medium, value: viewModel.isRefreshing)
+        .animation(SBMotion.medium, value: viewModel.shouldShowInlineError)
         .onAppear {
             if viewModel.progress.xp == 0 { viewModel.load() }
             animateIn = true
@@ -377,6 +459,81 @@ public struct ProgressScreenView: View {
                 }
                 Spacer()
             }
+        }
+    }
+}
+
+private struct ProgressSkeletonView: View {
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 14) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 8) {
+                        SBSkeletonBlock(width: 140, height: 26, cornerRadius: 8)
+                        SBSkeletonBlock(width: 250, height: 14, cornerRadius: 7)
+                    }
+                    Spacer()
+                    SBSkeletonBlock(width: 52, height: 52, cornerRadius: 26)
+                }
+
+                SBSkeletonBlock(height: 124, cornerRadius: SBRadius.card)
+
+                SBSkeletonBlock(width: 96, height: 12, cornerRadius: 6)
+                SBCard {
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack {
+                            SBSkeletonBlock(width: 88, height: 14, cornerRadius: 6)
+                            Spacer()
+                            SBSkeletonBlock(width: 76, height: 16, cornerRadius: 8)
+                        }
+                        SBSkeletonBlock(height: 8, cornerRadius: 4)
+                        SBSkeletonBlock(width: 180, height: 12, cornerRadius: 6)
+                    }
+                }
+
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                    ForEach(0..<4, id: \.self) { _ in
+                        SBCard {
+                            HStack(spacing: 8) {
+                                SBSkeletonBlock(width: 34, height: 34, cornerRadius: 10)
+                                VStack(alignment: .leading, spacing: 4) {
+                                    SBSkeletonBlock(width: 50, height: 16, cornerRadius: 6)
+                                    SBSkeletonBlock(width: 70, height: 11, cornerRadius: 5)
+                                }
+                                Spacer()
+                            }
+                        }
+                    }
+                }
+
+                SBSkeletonBlock(width: 130, height: 12, cornerRadius: 6)
+                SBCard {
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack {
+                            SBSkeletonBlock(width: 100, height: 14, cornerRadius: 6)
+                            Spacer()
+                            SBSkeletonBlock(width: 80, height: 12, cornerRadius: 6)
+                        }
+                        HStack(alignment: .bottom, spacing: 6) {
+                            ForEach(0..<7, id: \.self) { i in
+                                SBSkeletonBlock(
+                                    height: CGFloat([50, 70, 90, 55, 80, 100, 65][i]),
+                                    cornerRadius: 4
+                                )
+                            }
+                        }
+                        .frame(height: 100)
+                        HStack(spacing: 8) {
+                            ForEach(0..<7, id: \.self) { _ in
+                                SBSkeletonBlock(height: 28, cornerRadius: 14)
+                            }
+                        }
+                        SBSkeletonBlock(height: 36, cornerRadius: 12)
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 16)
         }
     }
 }

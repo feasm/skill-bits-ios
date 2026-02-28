@@ -7,10 +7,7 @@ import SkillBitsDesignSystem
 @Observable
 public final class LessonViewModel {
     public var lessonContent: LessonContent?
-    public var speed: Float = 1.0
-    public var isSpeaking = false
     private let repo: LessonRepository
-    private let synthesizer = AVSpeechSynthesizer()
 
     public init(repo: LessonRepository) { self.repo = repo }
 
@@ -19,28 +16,6 @@ public final class LessonViewModel {
             let content = try? await repo.fetchLessonContent(courseId: courseId, moduleId: moduleId, lessonId: lessonId)
             await MainActor.run { self.lessonContent = content }
         }
-    }
-
-    public func speak() {
-        guard let lessonContent else { return }
-        if synthesizer.isSpeaking {
-            synthesizer.stopSpeaking(at: .immediate)
-            isSpeaking = false
-            return
-        }
-        let text = lessonContent.content.map { block -> String in
-            switch block {
-            case .heading(let value), .heading2(let value), .paragraph(let value): return value
-            case .list(let items): return items.joined(separator: ". ")
-            case .code(_, let text): return text
-            case .callout(_, let text): return text
-            }
-        }.joined(separator: " ")
-        let utterance = AVSpeechUtterance(string: text)
-        utterance.rate = speed * 0.5
-        utterance.voice = AVSpeechSynthesisVoice(language: "pt-BR")
-        synthesizer.speak(utterance)
-        isSpeaking = true
     }
 
     public func completeLesson(courseId: String, moduleId: String, lessonId: String) {
@@ -52,23 +27,27 @@ public final class LessonViewModel {
 
 public struct LessonReaderView: View {
     @State private var viewModel: LessonViewModel
+    @State private var audioPlayer = AudioPlayerViewModel()
     public let courseId: String
     public let moduleId: String
     public let lesson: Lesson
     public let onComplete: () -> Void
     public let onStartQuiz: () -> Void
+    public let onClose: (() -> Void)?
     @State private var showAudioSheet = false
     @State private var showFontSheet = false
     @State private var fontSize: CGFloat = 16
     @State private var lineSpacing: CGFloat = 6
-    @State private var audioProgress: Double = 0
+    @State private var isSeeking = false
+    @State private var seekProgress: Double = 0
     @Environment(\.dismiss) private var dismiss
 
-    public init(repo: LessonRepository, courseId: String, moduleId: String, lesson: Lesson, onComplete: @escaping () -> Void, onStartQuiz: @escaping () -> Void) {
+    public init(repo: LessonRepository, courseId: String, moduleId: String, lesson: Lesson, onClose: (() -> Void)? = nil, onComplete: @escaping () -> Void, onStartQuiz: @escaping () -> Void) {
         self._viewModel = State(initialValue: LessonViewModel(repo: repo))
         self.courseId = courseId
         self.moduleId = moduleId
         self.lesson = lesson
+        self.onClose = onClose
         self.onComplete = onComplete
         self.onStartQuiz = onStartQuiz
     }
@@ -87,6 +66,11 @@ public struct LessonReaderView: View {
                         Spacer()
                         SBIconButton(icon: "textformat.size") {
                             showFontSheet = true
+                        }
+                        if let onClose {
+                            SBIconButton(icon: "xmark") {
+                                onClose()
+                            }
                         }
                     }
 
@@ -107,12 +91,10 @@ public struct LessonReaderView: View {
                     }
 
                     SBSectionHeader("Acoes")
-                    SBPrimaryButton(viewModel.isSpeaking ? "Parar audio" : "Ouvir texto", icon: "speaker.wave.2.fill") {
+                    SBPrimaryButton(audioPlayer.isPlaying ? "Parar audio" : "Ouvir texto", icon: "speaker.wave.2.fill") {
+                        configureAudioIfNeeded()
                         showAudioSheet = true
-                        viewModel.speak()
-                        withAnimation(SBMotion.medium) {
-                            audioProgress = viewModel.isSpeaking ? 0.65 : 0
-                        }
+                        audioPlayer.togglePlayPause()
                     }
                     SBSecondaryButton("Marcar concluida") {
                         viewModel.completeLesson(courseId: courseId, moduleId: moduleId, lessonId: lesson.id)
@@ -128,6 +110,7 @@ public struct LessonReaderView: View {
             }
         }
         .onAppear { viewModel.load(courseId: courseId, moduleId: moduleId, lessonId: lesson.id) }
+        .onDisappear { audioPlayer.stop() }
         .sheet(isPresented: $showFontSheet) {
             SBBottomSheet(title: "Preferencias de leitura") {
                 VStack(alignment: .leading, spacing: 12) {
@@ -154,63 +137,162 @@ public struct LessonReaderView: View {
             .presentationDragIndicator(.visible)
         }
         .sheet(isPresented: $showAudioSheet) {
-            SBBottomSheet(title: "Audio da aula") {
-                VStack(spacing: 14) {
-                    RoundedRectangle(cornerRadius: 14)
-                        .fill(LinearGradient.skillBits)
-                        .frame(width: 42, height: 42)
-                        .overlay(Image(systemName: "speaker.wave.2.fill").foregroundStyle(.white))
-
-                    SBProgressBar(value: audioProgress)
-
-                    Button {
-                        viewModel.speak()
-                    } label: {
-                        HStack(spacing: 8) {
-                            Image(systemName: viewModel.isSpeaking ? "pause.fill" : "play.fill")
-                            Text(viewModel.isSpeaking ? "Pausar" : "Reproduzir")
-                                .font(SBFont.label(15))
-                        }
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 48)
-                        .background(LinearGradient.skillBits)
-                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                    }
-                    .buttonStyle(SBPressableButtonStyle())
-
-                    HStack(spacing: 10) {
-                        ForEach([Float(1.0), 1.25, 1.5], id: \.self) { speed in
-                            Button {
-                                viewModel.speed = speed
-                            } label: {
-                                Text(speed == 1.0 ? "1x" : String(format: "%.2gx", speed))
-                                    .font(SBFont.label(15))
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 42)
-                                    .background(viewModel.speed == speed ? AnyShapeStyle(LinearGradient.skillBits) : AnyShapeStyle(SBColor.surface))
-                                    .foregroundStyle(viewModel.speed == speed ? .white : SBColor.textSecondary)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(viewModel.speed == speed ? Color.clear : SBColor.border, lineWidth: 1)
-                                    )
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                }
-            }
-            .presentationDetents([.medium])
-            .presentationDragIndicator(.visible)
-        }
-        .onChange(of: viewModel.isSpeaking) { _, speaking in
-            withAnimation(SBMotion.medium) {
-                audioProgress = speaking ? 0.8 : 0
-            }
+            audioSheet
+                .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
         }
         .toolbar(.hidden, for: .navigationBar)
     }
+
+    // MARK: - Audio sheet
+
+    private var audioSheet: some View {
+        SBBottomSheet(title: "Audio da aula") {
+            VStack(spacing: 16) {
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(LinearGradient.skillBits)
+                    .frame(width: 48, height: 48)
+                    .overlay(
+                        Group {
+                            if audioPlayer.isLoading {
+                                ProgressView()
+                                    .tint(.white)
+                            } else {
+                                Image(systemName: "speaker.wave.2.fill")
+                                    .foregroundStyle(.white)
+                            }
+                        }
+                    )
+
+                if audioPlayer.usesStreaming {
+                    streamingControls
+                } else {
+                    ttsControls
+                }
+
+                speedPicker
+            }
+        }
+    }
+
+    private var streamingControls: some View {
+        VStack(spacing: 12) {
+            SBProgressBar(value: isSeeking ? seekProgress : audioPlayer.progress, height: 6)
+                .gesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { value in
+                            isSeeking = true
+                            seekProgress = max(0, min(1, Double(value.location.x / UIScreen.main.bounds.width)))
+                        }
+                        .onEnded { _ in
+                            audioPlayer.seek(to: seekProgress)
+                            isSeeking = false
+                        }
+                )
+
+            HStack {
+                Text(audioPlayer.currentTimeText)
+                    .font(SBFont.label(12))
+                    .foregroundStyle(SBColor.textTertiary)
+                    .monospacedDigit()
+                Spacer()
+                Text(audioPlayer.durationText)
+                    .font(SBFont.label(12))
+                    .foregroundStyle(SBColor.textTertiary)
+                    .monospacedDigit()
+            }
+
+            HStack(spacing: 24) {
+                Button { audioPlayer.skip(seconds: -15) } label: {
+                    Image(systemName: "gobackward.15")
+                        .font(.system(size: 22))
+                        .foregroundStyle(SBColor.textSecondary)
+                }
+
+                Button {
+                    audioPlayer.togglePlayPause()
+                } label: {
+                    Image(systemName: audioPlayer.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                        .font(.system(size: 48))
+                        .foregroundStyle(LinearGradient.skillBits)
+                }
+
+                Button { audioPlayer.skip(seconds: 15) } label: {
+                    Image(systemName: "goforward.15")
+                        .font(.system(size: 22))
+                        .foregroundStyle(SBColor.textSecondary)
+                }
+            }
+            .padding(.vertical, 4)
+        }
+    }
+
+    private var ttsControls: some View {
+        VStack(spacing: 12) {
+            Text("Usando voz do sistema")
+                .font(SBFont.label(12))
+                .foregroundStyle(SBColor.textTertiary)
+
+            Button {
+                audioPlayer.togglePlayPause()
+            } label: {
+                HStack(spacing: 8) {
+                    Image(systemName: audioPlayer.isPlaying ? "pause.fill" : "play.fill")
+                    Text(audioPlayer.isPlaying ? "Pausar" : "Reproduzir")
+                        .font(SBFont.label(15))
+                }
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 48)
+                .background(LinearGradient.skillBits)
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            }
+            .buttonStyle(SBPressableButtonStyle())
+        }
+    }
+
+    private var speedPicker: some View {
+        HStack(spacing: 10) {
+            ForEach([Float(1.0), 1.25, 1.5, 2.0], id: \.self) { spd in
+                Button {
+                    audioPlayer.setSpeed(spd)
+                } label: {
+                    Text(spd == 1.0 ? "1x" : String(format: "%.2gx", spd))
+                        .font(SBFont.label(15))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 42)
+                        .background(audioPlayer.speed == spd ? AnyShapeStyle(LinearGradient.skillBits) : AnyShapeStyle(SBColor.surface))
+                        .foregroundStyle(audioPlayer.speed == spd ? .white : SBColor.textSecondary)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(audioPlayer.speed == spd ? Color.clear : SBColor.border, lineWidth: 1)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    // MARK: - Audio config
+
+    private func configureAudioIfNeeded() {
+        guard !audioPlayer.isPlaying, audioPlayer.duration == 0 else { return }
+        guard let content = viewModel.lessonContent else { return }
+
+        let text = content.content.map { block -> String in
+            switch block {
+            case .heading(let value), .heading2(let value), .paragraph(let value): return value
+            case .list(let items): return items.joined(separator: ". ")
+            case .code: return ""
+            case .callout(_, let text): return text
+            }
+        }.joined(separator: " ")
+
+        audioPlayer.configure(audioUrl: content.audioUrl, lessonText: text)
+    }
+
+    // MARK: - Block rendering
 
     @ViewBuilder
     private func blockView(_ block: LessonBlock) -> some View {

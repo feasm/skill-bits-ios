@@ -15,16 +15,22 @@ public struct SupabaseLessonRepository: LessonRepository, Sendable {
             let title: String
             let duration: String
             let content: [LessonBlockDTO]?
+            let audioUrl: String?
+
+            enum CodingKeys: String, CodingKey {
+                case id, title, duration, content
+                case audioUrl = "audio_url"
+            }
         }
 
         let row: LessonRow = try await client.from("lessons")
-            .select("id, title, duration, content")
+            .select("id, title, duration, content, audio_url")
             .eq("id", value: lessonId)
             .single()
             .execute().value
 
         let blocks = (row.content ?? []).map { $0.toDomain() }
-        return LessonContent(lessonId: row.id, title: row.title, readTime: row.duration, content: blocks)
+        return LessonContent(lessonId: row.id, title: row.title, readTime: row.duration, content: blocks, audioUrl: row.audioUrl)
     }
 
     public func completeLesson(courseId: String, moduleId: String, lessonId: String) async throws {

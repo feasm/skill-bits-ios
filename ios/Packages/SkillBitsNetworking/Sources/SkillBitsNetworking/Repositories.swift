@@ -41,6 +41,7 @@ public final class MockProgressRepository: ProgressRepository {
     public init(backend: MockBackendService) { self.backend = backend }
     public func fetchProgress() async throws -> UserProgress { await backend.fetchProgress() }
     public func saveProgress(_ progress: UserProgress) async throws { await backend.saveProgress(progress) }
+    public func fetchWeeklyStudy() async throws -> [WeeklyStudyDay] { await backend.fetchWeeklyStudy() }
 }
 
 public final class MockPaywallRepository: PaywallRepository {

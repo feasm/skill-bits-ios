@@ -10,11 +10,51 @@ public final class CoursesViewModel {
     public var selectedFilter = "Todos"
     public var isLoading = false
     public var loadError = false
+    public var onboardingReason: String?
+    private var hasLoadedOnce = false
+    private var lastLoadedAt: Date?
+    private let refreshInterval: TimeInterval = 300
     private let repo: CoursesRepository
 
-    public init(repo: CoursesRepository) { self.repo = repo }
+    public init(repo: CoursesRepository, onboardingReason: String? = nil) {
+        self.repo = repo
+        self.onboardingReason = onboardingReason
+    }
 
-    public func load() async {
+    public var recommendedCourse: Course? {
+        guard let reason = onboardingReason else { return nil }
+        let targetId: String
+        switch reason {
+        case "universidade", "curiosidade":
+            targetId = "c2"
+        case "carreira":
+            targetId = "c1"
+        case "evolucao":
+            targetId = "c3"
+        default:
+            return nil
+        }
+        return courses.first { $0.id == targetId }
+    }
+
+    public var isInitialLoad: Bool {
+        isLoading && !hasLoadedOnce && courses.isEmpty
+    }
+
+    public var shouldShowBlockingError: Bool {
+        loadError && !hasLoadedOnce && courses.isEmpty
+    }
+
+    public var shouldShowInlineError: Bool {
+        loadError && (hasLoadedOnce || !courses.isEmpty)
+    }
+
+    public var isRefreshing: Bool {
+        isLoading && hasLoadedOnce
+    }
+
+    public func load(force: Bool = false) async {
+        guard force || shouldFetch else { return }
         await MainActor.run {
             isLoading = true
             loadError = false
@@ -24,6 +64,8 @@ public final class CoursesViewModel {
             await MainActor.run {
                 self.courses = data
                 self.isLoading = false
+                self.hasLoadedOnce = true
+                self.lastLoadedAt = Date()
             }
         } catch {
             await MainActor.run {
@@ -33,8 +75,18 @@ public final class CoursesViewModel {
         }
     }
 
-    public func load() {
-        Task { await load() as Void }
+    public func load(force: Bool = false) {
+        Task { await load(force: force) as Void }
+    }
+
+    public func invalidateCache() {
+        lastLoadedAt = nil
+    }
+
+    private var shouldFetch: Bool {
+        guard hasLoadedOnce else { return true }
+        guard let lastLoadedAt else { return true }
+        return Date().timeIntervalSince(lastLoadedAt) >= refreshInterval
     }
 
     public var filters: [String] {
@@ -67,23 +119,49 @@ public struct CoursesView: View {
         ZStack {
             SBColor.background.ignoresSafeArea()
 
-            if viewModel.isLoading && viewModel.courses.isEmpty {
-                SBLoadingState("Carregando cursos...")
-            } else if viewModel.loadError && viewModel.courses.isEmpty {
+            if viewModel.isInitialLoad {
+                CoursesSkeletonView()
+                    .transition(.opacity)
+            } else if viewModel.shouldShowBlockingError {
                 SBErrorState(message: "Nao foi possivel carregar os cursos.") {
-                    viewModel.load()
+                    viewModel.load(force: true)
                 }
+                .transition(.opacity)
             } else {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 14) {
-                    Text("Cursos")
-                        .font(SBFont.display(30))
-                        .tracking(-0.5)
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 14) {
+                        if viewModel.isRefreshing {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                                .transition(.opacity)
+                        }
 
-                    HStack(spacing: 10) {
-                        SBTextField("Buscar cursos", icon: "magnifyingglass", text: $viewModel.search)
-                        SBIconButton(icon: "slider.horizontal.3") {}
-                    }
+                        if viewModel.shouldShowInlineError {
+                            SBCard {
+                                HStack(spacing: 10) {
+                                    Image(systemName: "wifi.exclamationmark")
+                                        .foregroundStyle(SBColor.error)
+                                    Text("Falha ao atualizar cursos. Exibindo os dados anteriores.")
+                                        .font(SBFont.body(12))
+                                        .foregroundStyle(SBColor.textSecondary)
+                                    Spacer()
+                                    Button("Tentar") { viewModel.load(force: true) }
+                                        .font(SBFont.label(12))
+                                        .buttonStyle(.plain)
+                                        .foregroundStyle(SBColor.accent)
+                                }
+                            }
+                            .transition(.opacity)
+                        }
+
+                        Text("Cursos")
+                            .font(SBFont.display(30))
+                            .tracking(-0.5)
+
+                        HStack(spacing: 10) {
+                            SBTextField("Buscar cursos", icon: "magnifyingglass", text: $viewModel.search)
+                            SBIconButton(icon: "slider.horizontal.3") {}
+                        }
 
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 8) {
@@ -116,6 +194,10 @@ public struct CoursesView: View {
                         }
                     }
 
+                    if let recommended = viewModel.recommendedCourse {
+                        recommendedCard(recommended)
+                    }
+
                     ForEach(Array(viewModel.filtered.enumerated()), id: \.element.id) { idx, course in
                         Button {
                             openCourse(course)
@@ -130,12 +212,15 @@ public struct CoursesView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 16)
-            }
-            .refreshable {
-                await viewModel.load() as Void
-            }
+                }
+                .refreshable {
+                    await viewModel.load(force: true) as Void
+                }
             }
         }
+        .animation(SBMotion.medium, value: viewModel.isInitialLoad)
+        .animation(SBMotion.medium, value: viewModel.isRefreshing)
+        .animation(SBMotion.medium, value: viewModel.shouldShowInlineError)
         .onAppear {
             if viewModel.courses.isEmpty { viewModel.load() }
             animateIn = true
@@ -210,6 +295,72 @@ public struct CoursesView: View {
         }
     }
 
+    private func recommendedCard(_ course: Course) -> some View {
+        Button {
+            openCourse(course)
+        } label: {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(spacing: 6) {
+                    Image(systemName: "star.fill")
+                        .font(.system(size: 10))
+                    Text("Recomendado para voce")
+                        .font(SBFont.label(12))
+                }
+                .foregroundStyle(.white.opacity(0.9))
+                .padding(.horizontal, 14)
+                .padding(.top, 12)
+                .padding(.bottom, 8)
+
+                HStack(spacing: 12) {
+                    Text(course.emoji)
+                        .font(.system(size: 28))
+                        .frame(width: 48, height: 48)
+                        .background(.white.opacity(0.2))
+                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(course.title)
+                            .font(SBFont.title(16))
+                            .foregroundStyle(.white)
+                        Text(recommendedSubtitle)
+                            .font(SBFont.body(12))
+                            .foregroundStyle(.white.opacity(0.8))
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundStyle(.white.opacity(0.7))
+                }
+                .padding(.horizontal, 14)
+                .padding(.bottom, 14)
+            }
+            .background(
+                LinearGradient(
+                    colors: [Color(hex: course.color1), Color(hex: course.color2)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .clipShape(RoundedRectangle(cornerRadius: SBRadius.card, style: .continuous))
+        }
+        .buttonStyle(SBPressableButtonStyle())
+    }
+
+    private var recommendedSubtitle: String {
+        switch viewModel.onboardingReason {
+        case "carreira":
+            return "Ideal para quem quer migrar de carreira"
+        case "universidade":
+            return "Perfeito para complementar seus estudos"
+        case "curiosidade":
+            return "Uma otima base para comecar"
+        case "evolucao":
+            return "Avance suas habilidades tecnicas"
+        default:
+            return "Comece por aqui"
+        }
+    }
+
     private func tag(_ text: String) -> some View {
         Text(text)
             .font(SBFont.label(11))
@@ -222,15 +373,45 @@ public struct CoursesView: View {
     }
 }
 
+private struct CoursesSkeletonView: View {
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 14) {
+                Text("Cursos")
+                    .font(SBFont.display(30))
+                    .tracking(-0.5)
+
+                SBSkeletonBlock(height: 52, cornerRadius: SBRadius.input)
+
+                HStack(spacing: 8) {
+                    SBSkeletonBlock(width: 74, height: 30, cornerRadius: SBRadius.pill)
+                    SBSkeletonBlock(width: 88, height: 30, cornerRadius: SBRadius.pill)
+                    SBSkeletonBlock(width: 96, height: 30, cornerRadius: SBRadius.pill)
+                }
+
+                SBSkeletonBlock(height: 72, cornerRadius: SBRadius.card)
+                SBSkeletonBlock(height: 88, cornerRadius: SBRadius.card)
+                SBSkeletonCard()
+                SBSkeletonCard()
+                SBSkeletonCard()
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 16)
+        }
+    }
+}
+
 public struct CourseDetailView: View {
     public let course: Course
     public let openModule: (Module) -> Void
     public let startLesson: (Module, Lesson) -> Void
+    public let onClose: (() -> Void)?
     @Environment(\.dismiss) private var dismiss
     @State private var expandedModules: Set<String> = []
 
-    public init(course: Course, openModule: @escaping (Module) -> Void, startLesson: @escaping (Module, Lesson) -> Void) {
+    public init(course: Course, onClose: (() -> Void)? = nil, openModule: @escaping (Module) -> Void, startLesson: @escaping (Module, Lesson) -> Void) {
         self.course = course
+        self.onClose = onClose
         self.openModule = openModule
         self.startLesson = startLesson
     }
@@ -244,9 +425,9 @@ public struct CourseDetailView: View {
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
-                        .frame(height: 260)
+                        .frame(height: 220)
                         .overlay(
-                            VStack(alignment: .leading, spacing: 12) {
+                            VStack(alignment: .leading, spacing: 10) {
                                 Text(course.category.uppercased())
                                     .font(SBFont.label(12))
                                     .foregroundStyle(.white)
@@ -254,14 +435,19 @@ public struct CourseDetailView: View {
                                     .padding(.vertical, 6)
                                     .background(.white.opacity(0.2))
                                     .clipShape(Capsule())
-                                Text(course.title)
-                                    .font(SBFont.display(26))
-                                    .foregroundStyle(.white)
-                                Text(course.emoji)
-                                    .font(.system(size: 34))
-                                HStack {
-                                    Label(course.totalDuration, systemImage: "clock.fill")
+                                HStack(alignment: .center, spacing: 12) {
+                                    Text(course.title)
+                                        .font(SBFont.display(26))
+                                        .foregroundStyle(.white)
                                     Spacer()
+                                    SBGlassCard {
+                                        Text(course.emoji)
+                                            .font(.system(size: 24))
+                                            .frame(width: 40, height: 40)
+                                    }
+                                }
+                                HStack(spacing: 16) {
+                                    Label(course.totalDuration, systemImage: "clock.fill")
                                     Label("\(course.modules.count) modulos", systemImage: "book.fill")
                                 }
                                 .font(SBFont.body(12))
@@ -272,18 +458,22 @@ public struct CourseDetailView: View {
                         )
                     VStack {
                         HStack {
+                            Spacer()
                             Button {
-                                dismiss()
+                                if let onClose {
+                                    onClose()
+                                } else {
+                                    dismiss()
+                                }
                             } label: {
                                 SBGlassCard {
-                                    Image(systemName: "chevron.left")
+                                    Image(systemName: "xmark")
                                         .font(.system(size: 13, weight: .bold))
                                         .foregroundStyle(.white)
                                         .frame(width: 28, height: 28)
                                 }
                             }
                             .buttonStyle(.plain)
-                            Spacer()
                         }
                         .padding(.horizontal, 18)
                         .padding(.top, 12)
@@ -292,41 +482,34 @@ public struct CourseDetailView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 14) {
-                    SBCard {
-                        HStack(spacing: 10) {
-                            Circle()
-                                .fill(
-                                    LinearGradient(
-                                        colors: [Color(hex: course.color1), Color(hex: course.color2)],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
-                                .frame(width: 44, height: 44)
-                                .overlay(
-                                    Text(String(course.instructor.prefix(1)))
-                                        .font(SBFont.label(16))
-                                        .foregroundStyle(.white)
-                                )
-                            VStack(alignment: .leading, spacing: 1) {
-                                Text(course.instructor)
-                                    .font(SBFont.label(14))
-                                Text("Instrutor principal")
-                                    .font(SBFont.body(12))
-                                    .foregroundStyle(SBColor.textTertiary)
-                            }
-                            Spacer()
-                        }
+                    HStack(spacing: 8) {
+                        SBBadge(course.level, kind: .level(course.level))
+                        SBBadge(badgeText, kind: badgeKind)
                     }
 
-                    SBSectionHeader("Sobre o curso")
                     Text(course.description)
                         .font(SBFont.body(15))
                         .foregroundStyle(SBColor.textSecondary)
+                        .lineSpacing(5)
+
+                    if course.progress > 0 {
+                        SBCard {
+                            VStack(alignment: .leading, spacing: 8) {
+                                HStack {
+                                    Text("Seu progresso")
+                                        .font(SBFont.label(13))
+                                    Spacer()
+                                    Text("\(course.progress)%")
+                                        .font(SBFont.stat(22))
+                                }
+                                SBProgressBar(value: Double(course.progress) / 100)
+                            }
+                        }
+                    }
 
                     SBSectionHeader("Modulos")
-                    ForEach(course.modules) { module in
-                        moduleAccordion(module)
+                    ForEach(Array(course.modules.enumerated()), id: \.element.id) { index, module in
+                        moduleAccordion(module, index: index)
                     }
                 }
                 .padding(.horizontal, 20)
@@ -335,7 +518,11 @@ public struct CourseDetailView: View {
         }
         .safeAreaInset(edge: .bottom) {
             SBCard {
-                SBPrimaryButton("Iniciar curso", size: .lg, icon: "play.fill") {
+                SBPrimaryButton(
+                    course.progress > 0 ? "Continuar curso" : "Iniciar curso",
+                    size: .lg,
+                    icon: course.progress > 0 ? "arrow.right" : "play.fill"
+                ) {
                     if let first = course.modules.first {
                         openModule(first)
                     }
@@ -350,8 +537,24 @@ public struct CourseDetailView: View {
         .toolbar(.hidden, for: .navigationBar)
     }
 
+    private var badgeText: String {
+        switch course.effectiveAccess {
+        case .free: "Gratis"
+        case .partial: "Parcial"
+        case .premium: "Premium"
+        }
+    }
+
+    private var badgeKind: SBBadge.Kind {
+        switch course.effectiveAccess {
+        case .free: .free
+        case .partial: .partial
+        case .premium: .premium
+        }
+    }
+
     @ViewBuilder
-    private func moduleAccordion(_ module: Module) -> some View {
+    private func moduleAccordion(_ module: Module, index: Int) -> some View {
         let isExpanded = expandedModules.contains(module.id)
         SBCard(padded: false) {
             VStack(spacing: 0) {
@@ -365,21 +568,35 @@ public struct CourseDetailView: View {
                     }
                     SBHaptics.selection()
                 } label: {
-                    HStack {
+                    HStack(spacing: 12) {
+                        Circle()
+                            .fill(
+                                LinearGradient(
+                                    colors: [Color(hex: course.color1), Color(hex: course.color2)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .frame(width: 34, height: 34)
+                            .overlay(
+                                Text("\(index + 1)")
+                                    .font(SBFont.label(14))
+                                    .foregroundStyle(.white)
+                            )
+
                         VStack(alignment: .leading, spacing: 2) {
                             Text(module.title)
                                 .font(SBFont.label(14))
                                 .foregroundStyle(SBColor.textPrimary)
-                            Text(module.description)
+                            Text("\(module.lessons.count) aulas · \(module.duration)")
                                 .font(SBFont.body(12))
                                 .foregroundStyle(SBColor.textTertiary)
-                                .lineLimit(1)
                         }
+
                         Spacer()
+
                         if module.accessTier == .premium {
-                            Image(systemName: "lock.fill")
-                                .font(.system(size: 11, weight: .semibold))
-                                .foregroundStyle(SBColor.accent)
+                            SBBadge("Premium", kind: .premium)
                         }
                         Image(systemName: "chevron.right")
                             .font(.system(size: 12, weight: .bold))
@@ -445,12 +662,14 @@ public struct ModuleDetailView: View {
     public let module: Module
     public let startLesson: (Lesson) -> Void
     public let startQuiz: (Bool) -> Void
+    public let onClose: (() -> Void)?
     @State private var appeared = false
     @Environment(\.dismiss) private var dismiss
 
-    public init(course: Course, module: Module, startLesson: @escaping (Lesson) -> Void, startQuiz: @escaping (Bool) -> Void) {
+    public init(course: Course, module: Module, onClose: (() -> Void)? = nil, startLesson: @escaping (Lesson) -> Void, startQuiz: @escaping (Bool) -> Void) {
         self.course = course
         self.module = module
+        self.onClose = onClose
         self.startLesson = startLesson
         self.startQuiz = startQuiz
     }
@@ -464,7 +683,7 @@ public struct ModuleDetailView: View {
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
-                SBNavBar(title: module.title, subtitle: "\(course.title) > modulo", onBack: { dismiss() })
+                SBNavBar(title: module.title, subtitle: "\(course.title) > modulo", onBack: { dismiss() }, onClose: onClose)
 
                 SBCard {
                     VStack(alignment: .leading, spacing: 10) {

@@ -133,72 +133,239 @@ public final class QuizViewModel {
 }
 
 public struct QuizIntroView: View {
+    public let moduleTitle: String
+    private let quizRepo: QuizRepository
+    private let moduleId: String
     public let startStudyMode: () -> Void
     public let startQuizFirstMode: () -> Void
     @State private var animateIn = false
+    @State private var questionCount: Int?
+    @State private var isLoadingCount = true
 
-    public init(startStudyMode: @escaping () -> Void, startQuizFirstMode: @escaping () -> Void) {
+    public init(
+        moduleTitle: String,
+        quizRepo: QuizRepository,
+        moduleId: String,
+        startStudyMode: @escaping () -> Void,
+        startQuizFirstMode: @escaping () -> Void
+    ) {
+        self.moduleTitle = moduleTitle
+        self.quizRepo = quizRepo
+        self.moduleId = moduleId
         self.startStudyMode = startStudyMode
         self.startQuizFirstMode = startQuizFirstMode
+    }
+
+    private var estimatedMinutes: Int {
+        max(1, (questionCount ?? 0) * 2)
     }
 
     public var body: some View {
         ZStack {
             SBColor.background.ignoresSafeArea()
-            ScrollView {
-                VStack(spacing: 16) {
-                    RoundedRectangle(cornerRadius: 26, style: .continuous)
-                        .fill(LinearGradient.skillBits)
-                        .frame(width: 88, height: 88)
-                        .overlay(Image(systemName: "questionmark.circle.fill").font(.system(size: 44)).foregroundStyle(.white))
-                        .sbShadow(.logo)
 
-                    Text("Questionario rapido")
-                        .font(SBFont.display(24))
-                        .foregroundStyle(SBColor.textPrimary)
-                    Text("Responda as perguntas e acompanhe sua evolucao em tempo real.")
-                        .font(SBFont.body(15))
-                        .foregroundStyle(SBColor.textSecondary)
-                        .multilineTextAlignment(.center)
+            VStack(spacing: 0) {
+                headerGradient
 
-                    HStack(spacing: 10) {
-                        stat("3", "Perguntas", SBColor.accent)
-                        stat("5", "Minutos", SBColor.purple)
-                        stat("70%", "Minimo", SBColor.success)
-                    }
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 20) {
+                        statsRow
+                            .padding(.top, 20)
 
-                    SBCard {
-                        VStack(alignment: .leading, spacing: 8) {
-                            SBSectionHeader("Como funciona")
-                            Text("1. Leia com calma cada pergunta\n2. Confirme sua resposta\n3. Veja o feedback imediato\n4. Continue para a proxima etapa")
-                                .font(SBFont.body(13))
-                                .foregroundStyle(SBColor.textSecondary)
-                        }
-                    }
+                        stepsCard
 
-                    SBPrimaryButton("Estudar primeiro", size: .lg, icon: "book.fill") {
-                        startStudyMode()
+                        Spacer(minLength: 0)
                     }
-                    SBOutlineButton("Ir direto para o quiz") {
-                        startQuizFirstMode()
-                    }
+                    .padding(.horizontal, 24)
                 }
-                .padding(24)
-                .opacity(animateIn ? 1 : 0)
-                .offset(y: animateIn ? 0 : 20)
-                .animation(SBMotion.medium, value: animateIn)
+
+                buttonsSection
             }
+            .opacity(animateIn ? 1 : 0)
+            .offset(y: animateIn ? 0 : 16)
+            .animation(SBMotion.medium, value: animateIn)
         }
-        .onAppear { animateIn = true }
+        .onAppear {
+            animateIn = true
+            loadQuestionCount()
+        }
     }
 
-    private func stat(_ value: String, _ title: String, _ color: Color) -> some View {
-        SBCard {
-            VStack(spacing: 4) {
-                Text(value).font(SBFont.stat(18)).foregroundStyle(color)
-                Text(title).font(SBFont.body(11)).foregroundStyle(SBColor.textTertiary)
+    private var headerGradient: some View {
+        ZStack(alignment: .bottom) {
+            LinearGradient.skillBits
+                .frame(height: 200)
+                .overlay(alignment: .topTrailing) {
+                    Circle()
+                        .fill(.white.opacity(0.08))
+                        .frame(width: 160, height: 160)
+                        .offset(x: 40, y: -30)
+                }
+                .overlay(alignment: .bottomLeading) {
+                    Circle()
+                        .fill(.white.opacity(0.05))
+                        .frame(width: 100, height: 100)
+                        .offset(x: -20, y: 30)
+                }
+
+            VStack(spacing: 8) {
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .fill(.white.opacity(0.2))
+                    .frame(width: 64, height: 64)
+                    .overlay(
+                        Image(systemName: "questionmark.circle.fill")
+                            .font(.system(size: 32, weight: .medium))
+                            .foregroundStyle(.white)
+                    )
+
+                Text("Questionario")
+                    .font(SBFont.display(24))
+                    .foregroundStyle(.white)
+
+                Text(moduleTitle)
+                    .font(SBFont.body(14))
+                    .foregroundStyle(.white.opacity(0.85))
+                    .lineLimit(1)
+                    .padding(.horizontal, 32)
             }
-            .frame(maxWidth: .infinity)
+            .padding(.bottom, 24)
+        }
+        .clipShape(
+            UnevenRoundedRectangle(
+                bottomLeadingRadius: 28,
+                bottomTrailingRadius: 28
+            )
+        )
+    }
+
+    private var statsRow: some View {
+        HStack(spacing: 0) {
+            statItem(
+                value: questionCount.map { "\($0)" },
+                label: "Perguntas",
+                icon: "list.bullet.clipboard",
+                color: SBColor.accent
+            )
+            statDivider
+            statItem(
+                value: questionCount.map { _ in "~\(estimatedMinutes) min" },
+                label: "Estimado",
+                icon: "clock",
+                color: SBColor.purple
+            )
+            statDivider
+            statItem(
+                value: "70%",
+                label: "Minimo",
+                icon: "target",
+                color: SBColor.success
+            )
+        }
+        .padding(.vertical, 14)
+        .background(SBColor.surface)
+        .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(SBColor.border, lineWidth: 1))
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+
+    private func statItem(value: String?, label: String, icon: String, color: Color) -> some View {
+        VStack(spacing: 6) {
+            Image(systemName: icon)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundStyle(color)
+            if let value {
+                Text(value)
+                    .font(SBFont.stat(18))
+                    .foregroundStyle(SBColor.textPrimary)
+            } else {
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(SBColor.border)
+                    .frame(width: 28, height: 18)
+                    .opacity(isLoadingCount ? 0.5 : 1.0)
+                    .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true), value: isLoadingCount)
+            }
+            Text(label)
+                .font(SBFont.body(11))
+                .foregroundStyle(SBColor.textTertiary)
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    private var statDivider: some View {
+        Rectangle()
+            .fill(SBColor.border)
+            .frame(width: 1, height: 40)
+    }
+
+    private var stepsCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Como funciona")
+                .font(SBFont.label(13))
+                .foregroundStyle(SBColor.textTertiary)
+
+            ForEach(Array(steps.enumerated()), id: \.offset) { idx, step in
+                HStack(spacing: 12) {
+                    Circle()
+                        .fill(LinearGradient.skillBits.opacity(0.15))
+                        .frame(width: 28, height: 28)
+                        .overlay(
+                            Text("\(idx + 1)")
+                                .font(SBFont.label(12))
+                                .foregroundStyle(SBColor.accent)
+                        )
+                    Text(step)
+                        .font(SBFont.body(14))
+                        .foregroundStyle(SBColor.textSecondary)
+                }
+            }
+        }
+        .padding(16)
+        .background(SBColor.surface)
+        .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(SBColor.border, lineWidth: 1))
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+
+    private var steps: [String] {
+        [
+            "Leia com calma cada pergunta",
+            "Confirme sua resposta",
+            "Veja o feedback imediato",
+            "Continue para a proxima etapa"
+        ]
+    }
+
+    private var buttonsSection: some View {
+        VStack(spacing: 10) {
+            SBPrimaryButton("Estudar primeiro", size: .lg, icon: "book.fill") {
+                startStudyMode()
+            }
+            SBOutlineButton("Ir direto para o quiz") {
+                startQuizFirstMode()
+            }
+        }
+        .padding(.horizontal, 24)
+        .padding(.vertical, 16)
+        .background(SBColor.surface)
+        .sbShadow(.sticky)
+    }
+
+    private func loadQuestionCount() {
+        Task {
+            do {
+                let questions = try await quizRepo.fetchQuiz(moduleId: moduleId)
+                await MainActor.run {
+                    withAnimation(SBMotion.quick) {
+                        questionCount = questions.count
+                        isLoadingCount = false
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    withAnimation(SBMotion.quick) {
+                        questionCount = nil
+                        isLoadingCount = false
+                    }
+                }
+            }
         }
     }
 }
