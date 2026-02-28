@@ -1,0 +1,30 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* Force light mode — no dark mode */
+:root {
+  color-scheme: light;
+}
+html, body {
+  color-scheme: light;
+}
+
+/* Hide scrollbars globally */
+*::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Touch scrolling */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Remove tap highlight on buttons */
+button {
+  -webkit-tap-highlight-color: transparent;
+}

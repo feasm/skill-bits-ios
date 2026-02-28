@@ -1,0 +1,494 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1B6CB41793498FCD67A491ED /* SkillBitsNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 27CEE43AEFE6083661596402 /* SkillBitsNetworking */; };
+		22EEE31C641E1B0872DD5A12 /* SkillBitsQuiz in Frameworks */ = {isa = PBXBuildFile; productRef = A897CD7B78BD1FB0B5D2FA43 /* SkillBitsQuiz */; };
+		3C0D1CA0A52F05A9BE28D443 /* SkillBitsCourses in Frameworks */ = {isa = PBXBuildFile; productRef = 1D994697A2B9AE875691F002 /* SkillBitsCourses */; };
+		402014B6734CE7E65EEA5F42 /* SkillBitsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA21717D6A6A2AE6CC212C1 /* SkillBitsApp.swift */; };
+		58097192F8C813B556946391 /* SkillBitsProfile in Frameworks */ = {isa = PBXBuildFile; productRef = 157DC4EB05FC9545F15EF7DE /* SkillBitsProfile */; };
+		60725D5A671ABB6EC35E9CF7 /* SkillBitsDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 491EB4395A2C762B08DA809C /* SkillBitsDesignSystem */; };
+		60BB73853FDE15853B9BDC21 /* SkillBitsGamification in Frameworks */ = {isa = PBXBuildFile; productRef = 927FC61A3EF72CD713A363DF /* SkillBitsGamification */; };
+		61F3C109157DBA3C75B302FC /* SkillBitsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0A7063C6CD98642388A15B53 /* SkillBitsCore */; };
+		88C95205F41CD1071C157ECA /* AppSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DC89ED4832B6C16D618E4D /* AppSession.swift */; };
+		8BB6486AA3293326BF6D1082 /* SkillBitsAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 12ACFB00EA073358A8336770 /* SkillBitsAuth */; };
+		A1F1D27B355EF49C5D750894 /* SkillBitsPaywall in Frameworks */ = {isa = PBXBuildFile; productRef = D7237B8D6FC9CBF80B52B7F2 /* SkillBitsPaywall */; };
+		A3D98C195A505CE325C6D79F /* RouterModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0CC70F18559C13F6B3C65 /* RouterModels.swift */; };
+		B3A3B69C831D6AFBABA6419A /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C81FB36FDC41C110138357 /* AppEnvironment.swift */; };
+		B460104E025EDE5658A45CBB /* SkillBitsLesson in Frameworks */ = {isa = PBXBuildFile; productRef = DA4B59CEE935A1B649ED75A5 /* SkillBitsLesson */; };
+		BB73153B243FDC6E764D7CCC /* SkillBitsHome in Frameworks */ = {isa = PBXBuildFile; productRef = 7A242792B750622D236E5468 /* SkillBitsHome */; };
+		DFAE4C661F8E7027697D815D /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847A53FEEFD7A2E1EDD16C4B /* MainTabView.swift */; };
+		EAFF2494391C78A6F89FA52B /* SkillBitsProgress in Frameworks */ = {isa = PBXBuildFile; productRef = C614946FFF18E9812D26ECD7 /* SkillBitsProgress */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0617E478D9DB0C220D614EEB /* SkillBitsApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SkillBitsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D3A415EBB5DACB5C87D4B15 /* SkillBitsCourses */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsCourses; path = Packages/SkillBitsCourses; sourceTree = SOURCE_ROOT; };
+		0DE0CC70F18559C13F6B3C65 /* RouterModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterModels.swift; sourceTree = "<group>"; };
+		24D167F79308B57CFC1FB057 /* SkillBitsQuiz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsQuiz; path = Packages/SkillBitsQuiz; sourceTree = SOURCE_ROOT; };
+		25222D2171DBC526DAE6339A /* SkillBitsProgress */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsProgress; path = Packages/SkillBitsProgress; sourceTree = SOURCE_ROOT; };
+		39C81FB36FDC41C110138357 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		3D39F86AF6258785FEA1049E /* SkillBitsProfile */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsProfile; path = Packages/SkillBitsProfile; sourceTree = SOURCE_ROOT; };
+		82277207842D84EF545E61A5 /* SkillBitsPaywall */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsPaywall; path = Packages/SkillBitsPaywall; sourceTree = SOURCE_ROOT; };
+		847A53FEEFD7A2E1EDD16C4B /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		9BA21717D6A6A2AE6CC212C1 /* SkillBitsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillBitsApp.swift; sourceTree = "<group>"; };
+		B16342B6471724F48BE2B1D0 /* SkillBitsNetworking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsNetworking; path = Packages/SkillBitsNetworking; sourceTree = SOURCE_ROOT; };
+		C506261805AD606C91B3BFB6 /* SkillBitsLesson */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsLesson; path = Packages/SkillBitsLesson; sourceTree = SOURCE_ROOT; };
+		C7DC89ED4832B6C16D618E4D /* AppSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSession.swift; sourceTree = "<group>"; };
+		CB372C4762F9DF6DF2B28A54 /* SkillBitsGamification */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsGamification; path = Packages/SkillBitsGamification; sourceTree = SOURCE_ROOT; };
+		CE8C564179C8D5572698E7D1 /* SkillBitsAuth */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsAuth; path = Packages/SkillBitsAuth; sourceTree = SOURCE_ROOT; };
+		E1D91DEF0CA6B6E4F9F2A7F4 /* SkillBitsHome */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsHome; path = Packages/SkillBitsHome; sourceTree = SOURCE_ROOT; };
+		E3002C50105CEC126F0E1180 /* SkillBitsDesignSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsDesignSystem; path = Packages/SkillBitsDesignSystem; sourceTree = SOURCE_ROOT; };
+		E4CD1CC8FA1CB0470F43FD5E /* SkillBitsCore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsCore; path = Packages/SkillBitsCore; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		895762CB23DB6A64614D4BAB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61F3C109157DBA3C75B302FC /* SkillBitsCore in Frameworks */,
+				60725D5A671ABB6EC35E9CF7 /* SkillBitsDesignSystem in Frameworks */,
+				1B6CB41793498FCD67A491ED /* SkillBitsNetworking in Frameworks */,
+				8BB6486AA3293326BF6D1082 /* SkillBitsAuth in Frameworks */,
+				3C0D1CA0A52F05A9BE28D443 /* SkillBitsCourses in Frameworks */,
+				B460104E025EDE5658A45CBB /* SkillBitsLesson in Frameworks */,
+				22EEE31C641E1B0872DD5A12 /* SkillBitsQuiz in Frameworks */,
+				60BB73853FDE15853B9BDC21 /* SkillBitsGamification in Frameworks */,
+				EAFF2494391C78A6F89FA52B /* SkillBitsProgress in Frameworks */,
+				58097192F8C813B556946391 /* SkillBitsProfile in Frameworks */,
+				A1F1D27B355EF49C5D750894 /* SkillBitsPaywall in Frameworks */,
+				BB73153B243FDC6E764D7CCC /* SkillBitsHome in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		16C2A405071A0CF61C5FAB3D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0617E478D9DB0C220D614EEB /* SkillBitsApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		413EFF88379C164CD0407B84 = {
+			isa = PBXGroup;
+			children = (
+				DC4C19EBD76C9BB7CB85C1FF /* Packages */,
+				7F554FCE0A049D41C08D35D1 /* Sources */,
+				16C2A405071A0CF61C5FAB3D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7F554FCE0A049D41C08D35D1 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				39C81FB36FDC41C110138357 /* AppEnvironment.swift */,
+				C7DC89ED4832B6C16D618E4D /* AppSession.swift */,
+				847A53FEEFD7A2E1EDD16C4B /* MainTabView.swift */,
+				0DE0CC70F18559C13F6B3C65 /* RouterModels.swift */,
+				9BA21717D6A6A2AE6CC212C1 /* SkillBitsApp.swift */,
+			);
+			name = Sources;
+			path = SkillBitsApp/Sources;
+			sourceTree = "<group>";
+		};
+		DC4C19EBD76C9BB7CB85C1FF /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				CE8C564179C8D5572698E7D1 /* SkillBitsAuth */,
+				E4CD1CC8FA1CB0470F43FD5E /* SkillBitsCore */,
+				0D3A415EBB5DACB5C87D4B15 /* SkillBitsCourses */,
+				E3002C50105CEC126F0E1180 /* SkillBitsDesignSystem */,
+				CB372C4762F9DF6DF2B28A54 /* SkillBitsGamification */,
+				E1D91DEF0CA6B6E4F9F2A7F4 /* SkillBitsHome */,
+				C506261805AD606C91B3BFB6 /* SkillBitsLesson */,
+				B16342B6471724F48BE2B1D0 /* SkillBitsNetworking */,
+				82277207842D84EF545E61A5 /* SkillBitsPaywall */,
+				3D39F86AF6258785FEA1049E /* SkillBitsProfile */,
+				25222D2171DBC526DAE6339A /* SkillBitsProgress */,
+				24D167F79308B57CFC1FB057 /* SkillBitsQuiz */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		30910DC3F57544D9981D796C /* SkillBitsApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C712A64D78615076CB34280A /* Build configuration list for PBXNativeTarget "SkillBitsApp" */;
+			buildPhases = (
+				776E8B856EC23CAC73B1932F /* Sources */,
+				895762CB23DB6A64614D4BAB /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SkillBitsApp;
+			packageProductDependencies = (
+				0A7063C6CD98642388A15B53 /* SkillBitsCore */,
+				491EB4395A2C762B08DA809C /* SkillBitsDesignSystem */,
+				27CEE43AEFE6083661596402 /* SkillBitsNetworking */,
+				12ACFB00EA073358A8336770 /* SkillBitsAuth */,
+				1D994697A2B9AE875691F002 /* SkillBitsCourses */,
+				DA4B59CEE935A1B649ED75A5 /* SkillBitsLesson */,
+				A897CD7B78BD1FB0B5D2FA43 /* SkillBitsQuiz */,
+				927FC61A3EF72CD713A363DF /* SkillBitsGamification */,
+				C614946FFF18E9812D26ECD7 /* SkillBitsProgress */,
+				157DC4EB05FC9545F15EF7DE /* SkillBitsProfile */,
+				D7237B8D6FC9CBF80B52B7F2 /* SkillBitsPaywall */,
+				7A242792B750622D236E5468 /* SkillBitsHome */,
+			);
+			productName = SkillBitsApp;
+			productReference = 0617E478D9DB0C220D614EEB /* SkillBitsApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B0666B685E72FC12714DE2BB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+			};
+			buildConfigurationList = 2C515B758A4020B1EA4B74F5 /* Build configuration list for PBXProject "SkillBits" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 413EFF88379C164CD0407B84;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				49FE1B099F0D7D762E17B0C8 /* XCLocalSwiftPackageReference "Packages/SkillBitsAuth" */,
+				74777CC0CC5D1CF057B4A300 /* XCLocalSwiftPackageReference "Packages/SkillBitsCore" */,
+				D2B1C01F9BBDAAD7ADCD75A3 /* XCLocalSwiftPackageReference "Packages/SkillBitsCourses" */,
+				E5CCC3954BF5F57C532A8B86 /* XCLocalSwiftPackageReference "Packages/SkillBitsDesignSystem" */,
+				AC84E0C40439184048D6A77C /* XCLocalSwiftPackageReference "Packages/SkillBitsGamification" */,
+				57D91FDE7F22A02A9C800142 /* XCLocalSwiftPackageReference "Packages/SkillBitsHome" */,
+				DFE2CC3046EA82CDEA712D3C /* XCLocalSwiftPackageReference "Packages/SkillBitsLesson" */,
+				9625309B82CD8F3F78E9C54B /* XCLocalSwiftPackageReference "Packages/SkillBitsNetworking" */,
+				E19C8E1698B7A5613E6BF1F4 /* XCLocalSwiftPackageReference "Packages/SkillBitsPaywall" */,
+				F5F8CD81A29988A1BFE9CAE5 /* XCLocalSwiftPackageReference "Packages/SkillBitsProfile" */,
+				D45A2CFDF680E6342A1E368C /* XCLocalSwiftPackageReference "Packages/SkillBitsProgress" */,
+				9A778020D8C0801398CC00DC /* XCLocalSwiftPackageReference "Packages/SkillBitsQuiz" */,
+			);
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				30910DC3F57544D9981D796C /* SkillBitsApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		776E8B856EC23CAC73B1932F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3A3B69C831D6AFBABA6419A /* AppEnvironment.swift in Sources */,
+				88C95205F41CD1071C157ECA /* AppSession.swift in Sources */,
+				DFAE4C661F8E7027697D815D /* MainTabView.swift in Sources */,
+				A3D98C195A505CE325C6D79F /* RouterModels.swift in Sources */,
+				402014B6734CE7E65EEA5F42 /* SkillBitsApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		041B777A7C16532419F4A39F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		71D06234106137B2E6F86B05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.skillbits.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D22F16F571A04C69F2B7D1AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.skillbits.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E55E82E21C763B518ED5772F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2C515B758A4020B1EA4B74F5 /* Build configuration list for PBXProject "SkillBits" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				041B777A7C16532419F4A39F /* Debug */,
+				E55E82E21C763B518ED5772F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C712A64D78615076CB34280A /* Build configuration list for PBXNativeTarget "SkillBitsApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D22F16F571A04C69F2B7D1AF /* Debug */,
+				71D06234106137B2E6F86B05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		49FE1B099F0D7D762E17B0C8 /* XCLocalSwiftPackageReference "Packages/SkillBitsAuth" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsAuth;
+		};
+		57D91FDE7F22A02A9C800142 /* XCLocalSwiftPackageReference "Packages/SkillBitsHome" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsHome;
+		};
+		74777CC0CC5D1CF057B4A300 /* XCLocalSwiftPackageReference "Packages/SkillBitsCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsCore;
+		};
+		9625309B82CD8F3F78E9C54B /* XCLocalSwiftPackageReference "Packages/SkillBitsNetworking" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsNetworking;
+		};
+		9A778020D8C0801398CC00DC /* XCLocalSwiftPackageReference "Packages/SkillBitsQuiz" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsQuiz;
+		};
+		AC84E0C40439184048D6A77C /* XCLocalSwiftPackageReference "Packages/SkillBitsGamification" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsGamification;
+		};
+		D2B1C01F9BBDAAD7ADCD75A3 /* XCLocalSwiftPackageReference "Packages/SkillBitsCourses" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsCourses;
+		};
+		D45A2CFDF680E6342A1E368C /* XCLocalSwiftPackageReference "Packages/SkillBitsProgress" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsProgress;
+		};
+		DFE2CC3046EA82CDEA712D3C /* XCLocalSwiftPackageReference "Packages/SkillBitsLesson" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsLesson;
+		};
+		E19C8E1698B7A5613E6BF1F4 /* XCLocalSwiftPackageReference "Packages/SkillBitsPaywall" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsPaywall;
+		};
+		E5CCC3954BF5F57C532A8B86 /* XCLocalSwiftPackageReference "Packages/SkillBitsDesignSystem" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsDesignSystem;
+		};
+		F5F8CD81A29988A1BFE9CAE5 /* XCLocalSwiftPackageReference "Packages/SkillBitsProfile" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsProfile;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0A7063C6CD98642388A15B53 /* SkillBitsCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsCore;
+		};
+		12ACFB00EA073358A8336770 /* SkillBitsAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsAuth;
+		};
+		157DC4EB05FC9545F15EF7DE /* SkillBitsProfile */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsProfile;
+		};
+		1D994697A2B9AE875691F002 /* SkillBitsCourses */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsCourses;
+		};
+		27CEE43AEFE6083661596402 /* SkillBitsNetworking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsNetworking;
+		};
+		491EB4395A2C762B08DA809C /* SkillBitsDesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsDesignSystem;
+		};
+		7A242792B750622D236E5468 /* SkillBitsHome */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsHome;
+		};
+		927FC61A3EF72CD713A363DF /* SkillBitsGamification */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsGamification;
+		};
+		A897CD7B78BD1FB0B5D2FA43 /* SkillBitsQuiz */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsQuiz;
+		};
+		C614946FFF18E9812D26ECD7 /* SkillBitsProgress */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsProgress;
+		};
+		D7237B8D6FC9CBF80B52B7F2 /* SkillBitsPaywall */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsPaywall;
+		};
+		DA4B59CEE935A1B649ED75A5 /* SkillBitsLesson */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsLesson;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = B0666B685E72FC12714DE2BB /* Project object */;
+}

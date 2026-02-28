@@ -1,0 +1,809 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.xctest/Contents/MacOS/SkillBitsGamificationPackageTests",
+      "packagePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification",
+      "productName" : "SkillBitsGamificationPackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.SkillBitsCore-arm64-apple-macosx16.0-debug.module" : {
+      "executable" : "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/sources",
+      "importPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Models.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Repositories.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/swift-version--4CD4308975962E7A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SkillBitsCore",
+      "moduleOutputPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules/SkillBitsCore.swiftmodule",
+      "objects" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Models.swift.o",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Repositories.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j14",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/SkillBitsCore-Swift.h",
+        "-swift-version",
+        "5",
+        "-sdk",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "skillbitscore"
+      ],
+      "outputFileMapPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Models.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Repositories.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules/SkillBitsCore.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Models.swift",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Repositories.swift"
+      ],
+      "tempsPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SkillBitsGamification-arm64-apple-macosx16.0-debug.module" : {
+      "executable" : "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamification.build/sources",
+      "importPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/Sources/SkillBitsGamification/Gamification.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/swift-version--4CD4308975962E7A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules/SkillBitsCore.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamification.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SkillBitsGamification",
+      "moduleOutputPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules/SkillBitsGamification.swiftmodule",
+      "objects" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamification.build/Gamification.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j14",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamification.build/SkillBitsGamification-Swift.h",
+        "-swift-version",
+        "5",
+        "-sdk",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "skillbitsgamification"
+      ],
+      "outputFileMapPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamification.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamification.build/Gamification.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules/SkillBitsGamification.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/Sources/SkillBitsGamification/Gamification.swift"
+      ],
+      "tempsPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamification.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SkillBitsGamificationPackageTests-arm64-apple-macosx16.0-debug.module" : {
+      "executable" : "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.build/sources",
+      "importPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/swift-version--4CD4308975962E7A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules/SkillBitsGamificationTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SkillBitsGamificationPackageTests",
+      "moduleOutputPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules/SkillBitsGamificationPackageTests.swiftmodule",
+      "objects" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j14",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.build/SkillBitsGamificationPackageTests-Swift.h",
+        "-sdk",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "skillbitsgamification"
+      ],
+      "outputFileMapPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules/SkillBitsGamificationPackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SkillBitsGamificationTests-arm64-apple-macosx16.0-debug.module" : {
+      "executable" : "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/sources",
+      "importPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/Tests/SkillBitsGamificationTests/GamificationTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/swift-version--4CD4308975962E7A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules/SkillBitsGamification.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SkillBitsGamificationTests",
+      "moduleOutputPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules/SkillBitsGamificationTests.swiftmodule",
+      "objects" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/GamificationTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j14",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-sdk",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "skillbitsgamification"
+      ],
+      "outputFileMapPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/GamificationTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules/SkillBitsGamificationTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/Tests/SkillBitsGamificationTests/GamificationTests.swift"
+      ],
+      "tempsPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "SkillBitsCore" : [
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "SkillBitsCore",
+      "-package-name",
+      "skillbitscore",
+      "-incremental",
+      "-c",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Models.swift",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Repositories.swift",
+      "-I",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-enable-batch-mode",
+      "-index-store-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j14",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-module-cache-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/SkillBitsCore-Swift.h",
+      "-swift-version",
+      "5",
+      "-sdk",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "skillbitscore",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "SkillBitsGamification" : [
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "SkillBitsGamification",
+      "-package-name",
+      "skillbitsgamification",
+      "-incremental",
+      "-c",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/Sources/SkillBitsGamification/Gamification.swift",
+      "-I",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-enable-batch-mode",
+      "-index-store-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j14",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-module-cache-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamification.build/SkillBitsGamification-Swift.h",
+      "-swift-version",
+      "5",
+      "-sdk",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "skillbitsgamification",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "SkillBitsGamificationPackageTests" : [
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "SkillBitsGamificationPackageTests",
+      "-package-name",
+      "skillbitsgamification",
+      "-incremental",
+      "-c",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.derived/runner.swift",
+      "-I",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-enable-batch-mode",
+      "-index-store-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j14",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-module-cache-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.build/SkillBitsGamificationPackageTests-Swift.h",
+      "-sdk",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "skillbitsgamification",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "SkillBitsGamificationTests" : [
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "SkillBitsGamificationTests",
+      "-package-name",
+      "skillbitsgamification",
+      "-incremental",
+      "-c",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/Tests/SkillBitsGamificationTests/GamificationTests.swift",
+      "-I",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-enable-batch-mode",
+      "-index-store-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j14",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-module-cache-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-sdk",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "skillbitsgamification",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "SkillBitsCore" : [
+
+    ],
+    "SkillBitsGamification" : [
+      "SkillBitsCore"
+    ],
+    "SkillBitsGamificationPackageTests" : [
+      "SkillBitsGamificationTests",
+      "SkillBitsGamification",
+      "SkillBitsCore"
+    ],
+    "SkillBitsGamificationTests" : [
+      "SkillBitsGamification",
+      "SkillBitsCore"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "enableAllTraits" : false
+  },
+  "writeCommands" : {
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Models.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Repositories.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/sources"
+    },
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamification.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/Sources/SkillBitsGamification/Gamification.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamification.build/sources"
+    },
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.build/sources"
+    },
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Models.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Repositories.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamification.build/Gamification.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/GamificationTests.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/Tests/SkillBitsGamificationTests/GamificationTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/sources"
+    },
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/swift-version--4CD4308975962E7A.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/swift-version--4CD4308975962E7A.txt"
+    }
+  }
+}

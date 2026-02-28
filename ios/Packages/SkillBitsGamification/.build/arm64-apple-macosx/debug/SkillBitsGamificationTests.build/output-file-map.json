@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/master.swiftdeps"
+  },
+  "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/Tests/SkillBitsGamificationTests/GamificationTests.swift": {
+    "dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/GamificationTests.d",
+    "object": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/GamificationTests.swift.o",
+    "swiftmodule": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/GamificationTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationTests.build/GamificationTests.swiftdeps"
+  }
+}

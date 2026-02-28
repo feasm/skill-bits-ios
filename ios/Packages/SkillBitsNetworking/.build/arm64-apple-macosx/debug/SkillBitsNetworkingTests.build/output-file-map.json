@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/master.swiftdeps"
+  },
+  "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Tests/SkillBitsNetworkingTests/MockBackendTests.swift": {
+    "dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/MockBackendTests.d",
+    "object": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/MockBackendTests.swift.o",
+    "swiftmodule": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/MockBackendTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/MockBackendTests.swiftdeps"
+  }
+}

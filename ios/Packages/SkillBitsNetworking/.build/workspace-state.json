@@ -1,0 +1,27 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "skillbitscore",
+          "kind" : "fileSystem",
+          "location" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore",
+          "name" : "SkillBitsCore"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore"
+        },
+        "subpath" : "skillbitscore"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}

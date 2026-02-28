@@ -1,0 +1,4 @@
+module SkillBitsGamificationPackageTests {
+    header "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsGamificationPackageTests.build/SkillBitsGamificationPackageTests-Swift.h"
+    requires objc
+}

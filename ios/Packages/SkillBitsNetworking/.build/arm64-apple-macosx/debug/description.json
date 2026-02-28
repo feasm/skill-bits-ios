@@ -1,0 +1,847 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.xctest/Contents/MacOS/SkillBitsNetworkingPackageTests",
+      "packagePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking",
+      "productName" : "SkillBitsNetworkingPackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.SkillBitsCore-arm64-apple-macosx16.0-debug.module" : {
+      "executable" : "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/sources",
+      "importPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Models.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Repositories.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/swift-version--4CD4308975962E7A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SkillBitsCore",
+      "moduleOutputPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules/SkillBitsCore.swiftmodule",
+      "objects" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Models.swift.o",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Repositories.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j14",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/SkillBitsCore-Swift.h",
+        "-swift-version",
+        "5",
+        "-sdk",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "skillbitscore"
+      ],
+      "outputFileMapPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Models.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Repositories.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules/SkillBitsCore.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Models.swift",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Repositories.swift"
+      ],
+      "tempsPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SkillBitsNetworking-arm64-apple-macosx16.0-debug.module" : {
+      "executable" : "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/sources",
+      "importPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Sources/SkillBitsNetworking/API.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Sources/SkillBitsNetworking/MockBackend.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Sources/SkillBitsNetworking/Repositories.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/swift-version--4CD4308975962E7A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules/SkillBitsCore.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SkillBitsNetworking",
+      "moduleOutputPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules/SkillBitsNetworking.swiftmodule",
+      "objects" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/API.swift.o",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/MockBackend.swift.o",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/Repositories.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j14",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/SkillBitsNetworking-Swift.h",
+        "-swift-version",
+        "5",
+        "-sdk",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "skillbitsnetworking"
+      ],
+      "outputFileMapPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/API.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/MockBackend.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/Repositories.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules/SkillBitsNetworking.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Sources/SkillBitsNetworking/API.swift",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Sources/SkillBitsNetworking/MockBackend.swift",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Sources/SkillBitsNetworking/Repositories.swift"
+      ],
+      "tempsPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SkillBitsNetworkingPackageTests-arm64-apple-macosx16.0-debug.module" : {
+      "executable" : "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.build/sources",
+      "importPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/swift-version--4CD4308975962E7A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules/SkillBitsNetworkingTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SkillBitsNetworkingPackageTests",
+      "moduleOutputPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules/SkillBitsNetworkingPackageTests.swiftmodule",
+      "objects" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j14",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.build/SkillBitsNetworkingPackageTests-Swift.h",
+        "-sdk",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "skillbitsnetworking"
+      ],
+      "outputFileMapPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules/SkillBitsNetworkingPackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SkillBitsNetworkingTests-arm64-apple-macosx16.0-debug.module" : {
+      "executable" : "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/sources",
+      "importPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Tests/SkillBitsNetworkingTests/MockBackendTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/swift-version--4CD4308975962E7A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules/SkillBitsNetworking.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "SkillBitsNetworkingTests",
+      "moduleOutputPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules/SkillBitsNetworkingTests.swiftmodule",
+      "objects" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/MockBackendTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j14",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-sdk",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "skillbitsnetworking"
+      ],
+      "outputFileMapPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/MockBackendTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules/SkillBitsNetworkingTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Tests/SkillBitsNetworkingTests/MockBackendTests.swift"
+      ],
+      "tempsPath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "SkillBitsCore" : [
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "SkillBitsCore",
+      "-package-name",
+      "skillbitscore",
+      "-incremental",
+      "-c",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Models.swift",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Repositories.swift",
+      "-I",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-enable-batch-mode",
+      "-index-store-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j14",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-module-cache-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/SkillBitsCore-Swift.h",
+      "-swift-version",
+      "5",
+      "-sdk",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "skillbitscore",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "SkillBitsNetworking" : [
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "SkillBitsNetworking",
+      "-package-name",
+      "skillbitsnetworking",
+      "-incremental",
+      "-c",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Sources/SkillBitsNetworking/API.swift",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Sources/SkillBitsNetworking/MockBackend.swift",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Sources/SkillBitsNetworking/Repositories.swift",
+      "-I",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-enable-batch-mode",
+      "-index-store-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j14",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-module-cache-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/SkillBitsNetworking-Swift.h",
+      "-swift-version",
+      "5",
+      "-sdk",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "skillbitsnetworking",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "SkillBitsNetworkingPackageTests" : [
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "SkillBitsNetworkingPackageTests",
+      "-package-name",
+      "skillbitsnetworking",
+      "-incremental",
+      "-c",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.derived/runner.swift",
+      "-I",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.13",
+      "-enable-batch-mode",
+      "-index-store-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j14",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-module-cache-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.build/SkillBitsNetworkingPackageTests-Swift.h",
+      "-sdk",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "skillbitsnetworking",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "SkillBitsNetworkingTests" : [
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "SkillBitsNetworkingTests",
+      "-package-name",
+      "skillbitsnetworking",
+      "-incremental",
+      "-c",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Tests/SkillBitsNetworkingTests/MockBackendTests.swift",
+      "-I",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-enable-batch-mode",
+      "-index-store-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j14",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-module-cache-path",
+      "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-sdk",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode_16.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "skillbitsnetworking",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "SkillBitsCore" : [
+
+    ],
+    "SkillBitsNetworking" : [
+      "SkillBitsCore"
+    ],
+    "SkillBitsNetworkingPackageTests" : [
+      "SkillBitsNetworkingTests",
+      "SkillBitsNetworking",
+      "SkillBitsCore"
+    ],
+    "SkillBitsNetworkingTests" : [
+      "SkillBitsNetworking",
+      "SkillBitsCore"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "enableAllTraits" : false
+  },
+  "writeCommands" : {
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Models.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Repositories.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/sources"
+    },
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Sources/SkillBitsNetworking/API.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Sources/SkillBitsNetworking/MockBackend.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Sources/SkillBitsNetworking/Repositories.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/sources"
+    },
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.build/sources"
+    },
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Models.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Repositories.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/API.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/MockBackend.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworking.build/Repositories.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/MockBackendTests.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/Tests/SkillBitsNetworkingTests/MockBackendTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingTests.build/sources"
+    },
+    "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/swift-version--4CD4308975962E7A.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode_16.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/swift-version--4CD4308975962E7A.txt"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+module SkillBitsNetworkingPackageTests {
+    header "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsNetworking/.build/arm64-apple-macosx/debug/SkillBitsNetworkingPackageTests.build/SkillBitsNetworkingPackageTests-Swift.h"
+    requires objc
+}

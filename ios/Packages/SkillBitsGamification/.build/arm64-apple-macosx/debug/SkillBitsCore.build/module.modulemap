@@ -1,0 +1,4 @@
+module SkillBitsCore {
+    header "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsGamification/.build/arm64-apple-macosx/debug/SkillBitsCore.build/SkillBitsCore-Swift.h"
+    requires objc
+}

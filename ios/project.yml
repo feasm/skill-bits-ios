@@ -1,0 +1,61 @@
+name: SkillBits
+options:
+  deploymentTarget:
+    iOS: 17.0
+packages:
+  SkillBitsCore:
+    path: Packages/SkillBitsCore
+  SkillBitsDesignSystem:
+    path: Packages/SkillBitsDesignSystem
+  SkillBitsNetworking:
+    path: Packages/SkillBitsNetworking
+  SkillBitsAuth:
+    path: Packages/SkillBitsAuth
+  SkillBitsCourses:
+    path: Packages/SkillBitsCourses
+  SkillBitsLesson:
+    path: Packages/SkillBitsLesson
+  SkillBitsQuiz:
+    path: Packages/SkillBitsQuiz
+  SkillBitsGamification:
+    path: Packages/SkillBitsGamification
+  SkillBitsProgress:
+    path: Packages/SkillBitsProgress
+  SkillBitsProfile:
+    path: Packages/SkillBitsProfile
+  SkillBitsPaywall:
+    path: Packages/SkillBitsPaywall
+  SkillBitsHome:
+    path: Packages/SkillBitsHome
+targets:
+  SkillBitsApp:
+    type: application
+    platform: iOS
+    sources:
+      - SkillBitsApp/Sources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.skillbits.app
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - package: SkillBitsCore
+      - package: SkillBitsDesignSystem
+      - package: SkillBitsNetworking
+      - package: SkillBitsAuth
+      - package: SkillBitsCourses
+      - package: SkillBitsLesson
+      - package: SkillBitsQuiz
+      - package: SkillBitsGamification
+      - package: SkillBitsProgress
+      - package: SkillBitsProfile
+      - package: SkillBitsPaywall
+      - package: SkillBitsHome
+schemes:
+  SkillBitsApp:
+    build:
+      targets:
+        SkillBitsApp: all
+    run:
+      config: Debug
