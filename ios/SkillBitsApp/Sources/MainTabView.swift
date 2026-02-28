@@ -25,6 +25,7 @@ struct MainTabView: View {
     @State private var pendingQuizSession: QuizSession?
     @State private var pendingQuizResult: QuizResult?
     @State private var nextLessonState: NextLessonState?
+    @State private var premiumGate = PremiumGateState()
     @State private var showPaywall = false
     @State private var showPurchaseSuccess = false
     @State private var reviewPoints: [GuidedReviewPoint] = []
@@ -38,23 +39,22 @@ struct MainTabView: View {
                 }
                 .navigationDestination(item: $selectedCourse) { course in
                     CourseDetailView(course: course) { module in
-                        activeModule = ModuleNavItem(course: course, module: module)
+                        premiumGate.require(tier: module.accessTier, context: module.title) {
+                            activeModule = ModuleNavItem(course: course, module: module)
+                        }
                     } startLesson: { module, lesson in
-                        activeModule = ModuleNavItem(course: course, module: module)
-                        activeLesson = LessonNavItem(courseId: course.id, module: module, lesson: lesson)
+                        premiumGate.require(tier: module.accessTier, context: module.title) {
+                            activeLesson = LessonNavItem(courseId: course.id, module: module, lesson: lesson)
+                        }
                     }
                 }
                 .navigationDestination(item: $activeModule) { nav in
                     ModuleDetailView(course: nav.course, module: nav.module) { lesson in
-                        if nav.module.accessTier == .premium {
-                            showPaywall = true
-                        } else {
+                        premiumGate.require(tier: nav.module.accessTier, context: nav.module.title) {
                             activeLesson = LessonNavItem(courseId: nav.course.id, module: nav.module, lesson: lesson)
                         }
                     } startQuiz: { quizFirst in
-                        if nav.module.accessTier == .premium {
-                            showPaywall = true
-                        } else {
+                        premiumGate.require(tier: nav.module.accessTier, context: nav.module.title) {
                             activeQuizIntro = QuizIntroSession(moduleId: nav.module.id)
                         }
                     }
@@ -69,10 +69,14 @@ struct MainTabView: View {
                     }
                 }
             }
+            .premiumGateOverlay(premiumGate) {
+                showPaywall = true
+            }
             .sheet(isPresented: $showPaywall) {
                 PaywallView(viewModel: PaywallViewModel(repo: env.paywallRepository)) {
                     showPaywall = false
                     showPurchaseSuccess = true
+                    premiumGate.unlockPending()
                 }
             }
             .sheet(isPresented: $showPurchaseSuccess) {
@@ -96,10 +100,8 @@ struct MainTabView: View {
             }
             .sheet(item: $nextLessonState) { state in
                 NextLessonView(nextLessonTitle: state.nextLesson?.title ?? "Modulo concluido") {
-                    if let next = state.nextLesson {
-                        if let mod = activeModule {
-                            activeLesson = LessonNavItem(courseId: mod.course.id, module: mod.module, lesson: next)
-                        }
+                    if let next = state.nextLesson, let current = activeLesson {
+                        activeLesson = LessonNavItem(courseId: current.courseId, module: current.module, lesson: next)
                     }
                     nextLessonState = nil
                 }
@@ -165,12 +167,10 @@ struct MainTabView: View {
             .tabItem { Label("Progresso", systemImage: "chart.bar") }
             .tag(TabItem.progress)
 
-            NavigationStack {
-                ProfileScreenView(viewModel: ProfileViewModel(repo: env.progressRepository)) {
-                    withAnimation(SBMotion.springSmooth) {
-                        session.isLoggedIn = false
-                        session.onboardingCompleted = false
-                    }
+            ProfileScreenView(viewModel: ProfileViewModel(repo: env.progressRepository)) {
+                withAnimation(SBMotion.springSmooth) {
+                    session.isLoggedIn = false
+                    session.onboardingCompleted = false
                 }
             }
             .tabItem { Label("Perfil", systemImage: "person") }

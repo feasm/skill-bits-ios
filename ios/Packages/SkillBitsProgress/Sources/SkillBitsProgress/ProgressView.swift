@@ -9,6 +9,8 @@ import SkillBitsGamification
 public final class ProgressViewModel {
     public var progress = UserProgress(xp: 0, streakDays: 0, dailyGoal: .minutes15, studiedMinutesToday: 0, badges: [])
     public var courses: [Course] = []
+    public var isLoading = false
+    public var loadError = false
     private let repo: ProgressRepository
     private let coursesRepo: CoursesRepository
 
@@ -18,12 +20,22 @@ public final class ProgressViewModel {
     }
 
     public func load() {
+        isLoading = true
+        loadError = false
         Task {
-            let value = (try? await repo.fetchProgress()) ?? progress
-            let courseData = (try? await coursesRepo.fetchCourses()) ?? []
-            await MainActor.run {
-                self.progress = value
-                self.courses = courseData
+            do {
+                let value = try await repo.fetchProgress()
+                let courseData = (try? await coursesRepo.fetchCourses()) ?? []
+                await MainActor.run {
+                    self.progress = value
+                    self.courses = courseData
+                    self.isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    self.loadError = true
+                    self.isLoading = false
+                }
             }
         }
     }
@@ -71,6 +83,14 @@ public struct ProgressScreenView: View {
     public var body: some View {
         ZStack {
             SBColor.background.ignoresSafeArea()
+
+            if viewModel.isLoading && viewModel.progress.xp == 0 {
+                SBLoadingState("Carregando progresso...")
+            } else if viewModel.loadError && viewModel.progress.xp == 0 {
+                SBErrorState(message: "Nao foi possivel carregar seu progresso.") {
+                    viewModel.load()
+                }
+            } else {
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
                     HStack {
@@ -331,9 +351,11 @@ public struct ProgressScreenView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 16)
             }
+            .refreshable { viewModel.load() }
+            }
         }
         .onAppear {
-            viewModel.load()
+            if viewModel.progress.xp == 0 { viewModel.load() }
             animateIn = true
         }
     }

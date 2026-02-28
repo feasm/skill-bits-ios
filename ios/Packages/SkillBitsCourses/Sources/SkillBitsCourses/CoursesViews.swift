@@ -8,17 +8,33 @@ public final class CoursesViewModel {
     public var courses: [Course] = []
     public var search = ""
     public var selectedFilter = "Todos"
+    public var isLoading = false
+    public var loadError = false
     private let repo: CoursesRepository
 
     public init(repo: CoursesRepository) { self.repo = repo }
 
     public func load() async {
-        let data = (try? await repo.fetchCourses()) ?? []
-        await MainActor.run { self.courses = data }
+        await MainActor.run {
+            isLoading = true
+            loadError = false
+        }
+        do {
+            let data = try await repo.fetchCourses()
+            await MainActor.run {
+                self.courses = data
+                self.isLoading = false
+            }
+        } catch {
+            await MainActor.run {
+                self.loadError = true
+                self.isLoading = false
+            }
+        }
     }
 
     public func load() {
-        Task { await load() }
+        Task { await load() as Void }
     }
 
     public var filters: [String] {
@@ -50,6 +66,14 @@ public struct CoursesView: View {
     public var body: some View {
         ZStack {
             SBColor.background.ignoresSafeArea()
+
+            if viewModel.isLoading && viewModel.courses.isEmpty {
+                SBLoadingState("Carregando cursos...")
+            } else if viewModel.loadError && viewModel.courses.isEmpty {
+                SBErrorState(message: "Nao foi possivel carregar os cursos.") {
+                    viewModel.load()
+                }
+            } else {
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
                     Text("Cursos")
@@ -108,7 +132,8 @@ public struct CoursesView: View {
                 .padding(.vertical, 16)
             }
             .refreshable {
-                await viewModel.load()
+                await viewModel.load() as Void
+            }
             }
         }
         .onAppear {
@@ -322,7 +347,7 @@ public struct CourseDetailView: View {
             .sbShadow(.sticky)
         }
         .background(SBColor.background)
-        .navigationBarBackButtonHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
     }
 
     @ViewBuilder
@@ -421,6 +446,7 @@ public struct ModuleDetailView: View {
     public let startLesson: (Lesson) -> Void
     public let startQuiz: (Bool) -> Void
     @State private var appeared = false
+    @Environment(\.dismiss) private var dismiss
 
     public init(course: Course, module: Module, startLesson: @escaping (Lesson) -> Void, startQuiz: @escaping (Bool) -> Void) {
         self.course = course
@@ -438,7 +464,7 @@ public struct ModuleDetailView: View {
     public var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
-                SBNavBar(title: module.title, subtitle: "\(course.title) > modulo", onBack: nil)
+                SBNavBar(title: module.title, subtitle: "\(course.title) > modulo", onBack: { dismiss() })
 
                 SBCard {
                     VStack(alignment: .leading, spacing: 10) {
@@ -530,6 +556,7 @@ public struct ModuleDetailView: View {
             .padding(.vertical, 16)
         }
         .background(SBColor.background)
+        .toolbar(.hidden, for: .navigationBar)
         .onAppear { appeared = true }
     }
 

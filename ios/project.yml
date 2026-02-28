@@ -27,12 +27,16 @@ packages:
     path: Packages/SkillBitsPaywall
   SkillBitsHome:
     path: Packages/SkillBitsHome
+  SkillBitsSupabase:
+    path: Packages/SkillBitsSupabase
 targets:
   SkillBitsApp:
     type: application
     platform: iOS
     sources:
-      - SkillBitsApp/Sources
+      - path: SkillBitsApp/Sources
+        excludes:
+          - "Secrets.example.swift"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.skillbits.app
@@ -52,6 +56,7 @@ targets:
       - package: SkillBitsProfile
       - package: SkillBitsPaywall
       - package: SkillBitsHome
+      - package: SkillBitsSupabase
 schemes:
   SkillBitsApp:
     build:

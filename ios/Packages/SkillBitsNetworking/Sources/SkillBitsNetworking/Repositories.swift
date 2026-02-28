@@ -3,8 +3,15 @@ import SkillBitsCore
 
 public final class MockAuthRepository: AuthRepository {
     public init() {}
+    public func signUp(email: String, password: String) async throws {
+        try await Task.sleep(for: .milliseconds(300))
+    }
     public func login(email: String, password: String) async throws {}
     public func completeOnboarding(answer: OnboardingAnswer) async throws {}
+    public func currentSession() async -> Bool {
+        false
+    }
+    public func signOut() async throws {}
 }
 
 public final class MockCoursesRepository: CoursesRepository {

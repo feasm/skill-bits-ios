@@ -15,10 +15,12 @@
 		60725D5A671ABB6EC35E9CF7 /* SkillBitsDesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 491EB4395A2C762B08DA809C /* SkillBitsDesignSystem */; };
 		60BB73853FDE15853B9BDC21 /* SkillBitsGamification in Frameworks */ = {isa = PBXBuildFile; productRef = 927FC61A3EF72CD713A363DF /* SkillBitsGamification */; };
 		61F3C109157DBA3C75B302FC /* SkillBitsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0A7063C6CD98642388A15B53 /* SkillBitsCore */; };
+		68D0E3147FC221098A049FF7 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2161A6EBF13ECC7C583567BB /* Secrets.swift */; };
 		88C95205F41CD1071C157ECA /* AppSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DC89ED4832B6C16D618E4D /* AppSession.swift */; };
 		8BB6486AA3293326BF6D1082 /* SkillBitsAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 12ACFB00EA073358A8336770 /* SkillBitsAuth */; };
 		A1F1D27B355EF49C5D750894 /* SkillBitsPaywall in Frameworks */ = {isa = PBXBuildFile; productRef = D7237B8D6FC9CBF80B52B7F2 /* SkillBitsPaywall */; };
 		A3D98C195A505CE325C6D79F /* RouterModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0CC70F18559C13F6B3C65 /* RouterModels.swift */; };
+		AF82840BA614E9E04C453A2C /* SkillBitsSupabase in Frameworks */ = {isa = PBXBuildFile; productRef = FA1E562F787E28B334E7E5FC /* SkillBitsSupabase */; };
 		B3A3B69C831D6AFBABA6419A /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C81FB36FDC41C110138357 /* AppEnvironment.swift */; };
 		B460104E025EDE5658A45CBB /* SkillBitsLesson in Frameworks */ = {isa = PBXBuildFile; productRef = DA4B59CEE935A1B649ED75A5 /* SkillBitsLesson */; };
 		BB73153B243FDC6E764D7CCC /* SkillBitsHome in Frameworks */ = {isa = PBXBuildFile; productRef = 7A242792B750622D236E5468 /* SkillBitsHome */; };
@@ -30,6 +32,7 @@
 		0617E478D9DB0C220D614EEB /* SkillBitsApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SkillBitsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D3A415EBB5DACB5C87D4B15 /* SkillBitsCourses */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsCourses; path = Packages/SkillBitsCourses; sourceTree = SOURCE_ROOT; };
 		0DE0CC70F18559C13F6B3C65 /* RouterModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterModels.swift; sourceTree = "<group>"; };
+		2161A6EBF13ECC7C583567BB /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		24D167F79308B57CFC1FB057 /* SkillBitsQuiz */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsQuiz; path = Packages/SkillBitsQuiz; sourceTree = SOURCE_ROOT; };
 		25222D2171DBC526DAE6339A /* SkillBitsProgress */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsProgress; path = Packages/SkillBitsProgress; sourceTree = SOURCE_ROOT; };
 		39C81FB36FDC41C110138357 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
@@ -41,6 +44,7 @@
 		C506261805AD606C91B3BFB6 /* SkillBitsLesson */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsLesson; path = Packages/SkillBitsLesson; sourceTree = SOURCE_ROOT; };
 		C7DC89ED4832B6C16D618E4D /* AppSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSession.swift; sourceTree = "<group>"; };
 		CB372C4762F9DF6DF2B28A54 /* SkillBitsGamification */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsGamification; path = Packages/SkillBitsGamification; sourceTree = SOURCE_ROOT; };
+		CC97935C41C613E031B92E0B /* SkillBitsSupabase */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsSupabase; path = Packages/SkillBitsSupabase; sourceTree = SOURCE_ROOT; };
 		CE8C564179C8D5572698E7D1 /* SkillBitsAuth */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsAuth; path = Packages/SkillBitsAuth; sourceTree = SOURCE_ROOT; };
 		E1D91DEF0CA6B6E4F9F2A7F4 /* SkillBitsHome */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsHome; path = Packages/SkillBitsHome; sourceTree = SOURCE_ROOT; };
 		E3002C50105CEC126F0E1180 /* SkillBitsDesignSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; name = SkillBitsDesignSystem; path = Packages/SkillBitsDesignSystem; sourceTree = SOURCE_ROOT; };
@@ -64,6 +68,7 @@
 				58097192F8C813B556946391 /* SkillBitsProfile in Frameworks */,
 				A1F1D27B355EF49C5D750894 /* SkillBitsPaywall in Frameworks */,
 				BB73153B243FDC6E764D7CCC /* SkillBitsHome in Frameworks */,
+				AF82840BA614E9E04C453A2C /* SkillBitsSupabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +99,7 @@
 				C7DC89ED4832B6C16D618E4D /* AppSession.swift */,
 				847A53FEEFD7A2E1EDD16C4B /* MainTabView.swift */,
 				0DE0CC70F18559C13F6B3C65 /* RouterModels.swift */,
+				2161A6EBF13ECC7C583567BB /* Secrets.swift */,
 				9BA21717D6A6A2AE6CC212C1 /* SkillBitsApp.swift */,
 			);
 			name = Sources;
@@ -115,6 +121,7 @@
 				3D39F86AF6258785FEA1049E /* SkillBitsProfile */,
 				25222D2171DBC526DAE6339A /* SkillBitsProgress */,
 				24D167F79308B57CFC1FB057 /* SkillBitsQuiz */,
+				CC97935C41C613E031B92E0B /* SkillBitsSupabase */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -147,6 +154,7 @@
 				157DC4EB05FC9545F15EF7DE /* SkillBitsProfile */,
 				D7237B8D6FC9CBF80B52B7F2 /* SkillBitsPaywall */,
 				7A242792B750622D236E5468 /* SkillBitsHome */,
+				FA1E562F787E28B334E7E5FC /* SkillBitsSupabase */,
 			);
 			productName = SkillBitsApp;
 			productReference = 0617E478D9DB0C220D614EEB /* SkillBitsApp.app */;
@@ -184,6 +192,7 @@
 				F5F8CD81A29988A1BFE9CAE5 /* XCLocalSwiftPackageReference "Packages/SkillBitsProfile" */,
 				D45A2CFDF680E6342A1E368C /* XCLocalSwiftPackageReference "Packages/SkillBitsProgress" */,
 				9A778020D8C0801398CC00DC /* XCLocalSwiftPackageReference "Packages/SkillBitsQuiz" */,
+				11EFE3DC86508350733D3480 /* XCLocalSwiftPackageReference "Packages/SkillBitsSupabase" */,
 			);
 			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
@@ -203,6 +212,7 @@
 				88C95205F41CD1071C157ECA /* AppSession.swift in Sources */,
 				DFAE4C661F8E7027697D815D /* MainTabView.swift in Sources */,
 				A3D98C195A505CE325C6D79F /* RouterModels.swift in Sources */,
+				68D0E3147FC221098A049FF7 /* Secrets.swift in Sources */,
 				402014B6734CE7E65EEA5F42 /* SkillBitsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -389,6 +399,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		11EFE3DC86508350733D3480 /* XCLocalSwiftPackageReference "Packages/SkillBitsSupabase" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/SkillBitsSupabase;
+		};
 		49FE1B099F0D7D762E17B0C8 /* XCLocalSwiftPackageReference "Packages/SkillBitsAuth" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/SkillBitsAuth;
@@ -487,6 +501,10 @@
 		DA4B59CEE935A1B649ED75A5 /* SkillBitsLesson */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SkillBitsLesson;
+		};
+		FA1E562F787E28B334E7E5FC /* SkillBitsSupabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SkillBitsSupabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -49,6 +49,9 @@ struct SkillBitsApp: App {
                 }
             }
             .animation(SBMotion.springSmooth, value: phase)
+            .onAppear {
+                session.observeAuthState(manager: env.supabaseManager)
+            }
         }
     }
 }

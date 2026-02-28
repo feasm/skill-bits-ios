@@ -8,21 +8,35 @@ import SkillBitsGamification
 public final class HomeViewModel {
     public var progress = UserProgress(xp: 0, streakDays: 0, dailyGoal: .minutes15, studiedMinutesToday: 0, badges: [])
     public var courses: [Course] = []
+    public var userName: String
+    public var isLoading = false
+    public var loadError = false
     private let repo: ProgressRepository
     private let coursesRepo: CoursesRepository
 
-    public init(repo: ProgressRepository, coursesRepo: CoursesRepository) {
+    public init(repo: ProgressRepository, coursesRepo: CoursesRepository, userName: String = "Estudante") {
         self.repo = repo
         self.coursesRepo = coursesRepo
+        self.userName = userName
     }
 
     public func load() {
+        isLoading = true
+        loadError = false
         Task {
-            let value = (try? await repo.fetchProgress()) ?? progress
-            let courseData = (try? await coursesRepo.fetchCourses()) ?? []
-            await MainActor.run {
-                self.progress = value
-                self.courses = courseData
+            do {
+                let value = try await repo.fetchProgress()
+                let courseData = (try? await coursesRepo.fetchCourses()) ?? []
+                await MainActor.run {
+                    self.progress = value
+                    self.courses = courseData
+                    self.isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    self.loadError = true
+                    self.isLoading = false
+                }
             }
         }
     }
@@ -65,10 +79,17 @@ public struct HomeView: View {
         ZStack {
             SBColor.background.ignoresSafeArea()
 
+            if viewModel.isLoading && viewModel.courses.isEmpty {
+                SBLoadingState("Carregando seus dados...")
+            } else if viewModel.loadError && viewModel.courses.isEmpty {
+                SBErrorState(message: "Nao foi possivel carregar seus dados de estudo.") {
+                    viewModel.load()
+                }
+            } else {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     VStack(alignment: .leading, spacing: 6) {
-                        Text("Ola, Rafael")
+                        Text("Ola, \(viewModel.userName)")
                             .font(SBFont.title(24))
                             .foregroundStyle(SBColor.textPrimary)
                         Text("Vamos manter o ritmo hoje")
@@ -120,9 +141,15 @@ public struct HomeView: View {
                                 .foregroundStyle(SBColor.textSecondary)
                         }
                     } else {
-                        VStack(spacing: 10) {
+                        LazyVStack(spacing: 10) {
                             ForEach(viewModel.inProgressCourses) { course in
-                                homeCourseRow(course: course)
+                                Button {
+                                    SBHaptics.selection()
+                                    openCourse(course)
+                                } label: {
+                                    homeCourseRow(course: course)
+                                }
+                                .buttonStyle(SBPressableButtonStyle())
                             }
                         }
                     }
@@ -157,9 +184,11 @@ public struct HomeView: View {
                 .offset(y: appeared ? 0 : 16)
                 .animation(SBMotion.medium, value: appeared)
             }
+            .refreshable { viewModel.load() }
+            }
         }
         .onAppear {
-            viewModel.load()
+            if viewModel.courses.isEmpty { viewModel.load() }
             appeared = true
         }
     }
@@ -213,11 +242,8 @@ public struct HomeView: View {
                 SBProgressBar(value: Double(course.progress) / 100)
             }
         }
-        .contentShape(Rectangle())
-        .onTapGesture {
-            SBHaptics.selection()
-            openCourse(course)
-        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(course.title), \(course.progress)% concluido")
     }
 
     private func recommendedCard(course: Course) -> some View {

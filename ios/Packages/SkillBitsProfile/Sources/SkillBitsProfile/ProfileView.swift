@@ -6,16 +6,39 @@ import SkillBitsGamification
 
 @Observable
 public final class ProfileViewModel {
-    public var userName = "Usuário SkillBits"
+    public var userName: String
+    public var userEmail: String
     public var progress = UserProgress(xp: 0, streakDays: 0, dailyGoal: .minutes15, studiedMinutesToday: 0, badges: [])
+    public var isLoading = false
+    public var loadError = false
     private let repo: ProgressRepository
 
-    public init(repo: ProgressRepository) { self.repo = repo }
+    public init(repo: ProgressRepository, userName: String = "Estudante", userEmail: String = "usuario@skillbits.app") {
+        self.repo = repo
+        self.userName = userName
+        self.userEmail = userEmail
+    }
+
+    public var avatarInitial: String {
+        String(userName.prefix(1)).uppercased()
+    }
 
     public func load() {
+        isLoading = true
+        loadError = false
         Task {
-            let value = (try? await repo.fetchProgress()) ?? progress
-            await MainActor.run { self.progress = value }
+            do {
+                let value = try await repo.fetchProgress()
+                await MainActor.run {
+                    self.progress = value
+                    self.isLoading = false
+                }
+            } catch {
+                await MainActor.run {
+                    self.loadError = true
+                    self.isLoading = false
+                }
+            }
         }
     }
 }
@@ -43,11 +66,11 @@ public struct ProfileScreenView: View {
                                     Circle()
                                         .fill(LinearGradient.skillBits)
                                         .frame(width: 66, height: 66)
-                                        .overlay(Text("R").font(SBFont.stat(26)).foregroundStyle(.white))
+                                        .overlay(Text(viewModel.avatarInitial).font(SBFont.stat(26)).foregroundStyle(.white))
                                     VStack(alignment: .leading, spacing: 2) {
                                         Text(viewModel.userName)
                                             .font(SBFont.title(18))
-                                        Text("rafael@skillbits.app")
+                                        Text(viewModel.userEmail)
                                             .font(SBFont.body(13))
                                             .foregroundStyle(SBColor.textTertiary)
                                     }
@@ -146,7 +169,7 @@ public struct ProfileScreenView: View {
     private func destinationView(_ destination: ProfileDestination) -> some View {
         switch destination {
         case .personalData:
-            PersonalDataView()
+            PersonalDataView(name: viewModel.userName, email: viewModel.userEmail)
         case .subscription:
             SubscriptionView()
         case .notifications:
@@ -171,11 +194,14 @@ private enum ProfileDestination: Hashable {
 }
 
 public struct PersonalDataView: View {
-    @State private var name = "Rafael Oliveira"
-    @State private var email = "rafael@skillbits.app"
+    @State private var name: String
+    @State private var email: String
     @State private var password = ""
 
-    public init() {}
+    public init(name: String = "Estudante", email: String = "usuario@skillbits.app") {
+        self._name = State(initialValue: name)
+        self._email = State(initialValue: email)
+    }
 
     public var body: some View {
         ZStack {

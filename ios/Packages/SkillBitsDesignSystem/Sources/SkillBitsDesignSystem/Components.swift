@@ -220,6 +220,7 @@ public struct SBTextField: View {
         .padding(.horizontal, 14)
         .frame(height: 52)
         .background(SBColor.inputBg)
+        .clipShape(RoundedRectangle(cornerRadius: SBRadius.input, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: SBRadius.input, style: .continuous)
                 .stroke(focused ? SBColor.accent : SBColor.inputBorder, lineWidth: 1.5)
@@ -415,6 +416,9 @@ public struct SBProgressBar: View {
             }
         }
         .frame(height: height)
+        .accessibilityElement()
+        .accessibilityLabel("Progresso")
+        .accessibilityValue("\(Int(value * 100))%")
     }
 }
 
@@ -482,6 +486,7 @@ public struct SBAnimatedCounter: View {
         Text("\(Int(current))")
             .font(font)
             .foregroundStyle(color)
+            .accessibilityLabel("\(target)")
             .onAppear {
                 withAnimation(.easeOut(duration: 0.8)) {
                     current = Double(target)
@@ -637,6 +642,70 @@ public struct SBBottomSheet<Content: View>: View {
         }
         .padding(.horizontal, 24)
         .padding(.bottom, 24)
+    }
+}
+
+public struct SBLoadingState: View {
+    let message: String
+
+    public init(_ message: String = "Carregando...") {
+        self.message = message
+    }
+
+    public var body: some View {
+        VStack(spacing: 12) {
+            Spacer()
+            ProgressView()
+                .progressViewStyle(.circular)
+            Text(message)
+                .font(SBFont.body(14))
+                .foregroundStyle(SBColor.textSecondary)
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(message)
+    }
+}
+
+public struct SBErrorState: View {
+    let title: String
+    let message: String
+    let retryAction: () -> Void
+
+    public init(
+        title: String = "Algo deu errado",
+        message: String = "Nao foi possivel carregar os dados.",
+        retryAction: @escaping () -> Void
+    ) {
+        self.title = title
+        self.message = message
+        self.retryAction = retryAction
+    }
+
+    public var body: some View {
+        VStack(spacing: 12) {
+            Spacer()
+            SBCard {
+                VStack(spacing: 10) {
+                    Image(systemName: "wifi.exclamationmark")
+                        .font(.system(size: 28))
+                        .foregroundStyle(SBColor.error)
+                    Text(title)
+                        .font(SBFont.title(17))
+                    Text(message)
+                        .font(SBFont.body(13))
+                        .foregroundStyle(SBColor.textSecondary)
+                        .multilineTextAlignment(.center)
+                    SBPrimaryButton("Tentar novamente", size: .md) {
+                        retryAction()
+                    }
+                }
+            }
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 20)
     }
 }
 

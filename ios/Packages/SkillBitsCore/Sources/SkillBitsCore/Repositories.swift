@@ -11,8 +11,11 @@ public struct OnboardingAnswer: Codable, Sendable {
 }
 
 public protocol AuthRepository: Sendable {
+    func signUp(email: String, password: String) async throws
     func login(email: String, password: String) async throws
     func completeOnboarding(answer: OnboardingAnswer) async throws
+    func currentSession() async -> Bool
+    func signOut() async throws
 }
 
 public protocol CoursesRepository: Sendable {

@@ -8,17 +8,33 @@ public final class LoginViewModel {
     public var email = ""
     public var password = ""
     public var loading = false
+    public var errorMessage: String?
+    public var isSignUp = false
     private let repo: AuthRepository
 
     public init(repo: AuthRepository) { self.repo = repo }
 
-    public func login(onSuccess: @escaping () -> Void) {
+    public func submit(onSuccess: @escaping () -> Void) {
         loading = true
+        errorMessage = nil
         Task {
-            try? await repo.login(email: email, password: password)
-            await MainActor.run {
-                self.loading = false
-                onSuccess()
+            do {
+                if isSignUp {
+                    try await repo.signUp(email: email, password: password)
+                } else {
+                    try await repo.login(email: email, password: password)
+                }
+                await MainActor.run {
+                    self.loading = false
+                    onSuccess()
+                }
+            } catch {
+                await MainActor.run {
+                    self.loading = false
+                    self.errorMessage = isSignUp
+                        ? "Nao foi possivel criar a conta. Verifique seus dados."
+                        : "Email ou senha incorretos. Tente novamente."
+                }
             }
         }
     }
@@ -53,11 +69,11 @@ public struct LoginView: View {
                         .padding(.top, 20)
 
                     VStack(spacing: 8) {
-                        Text("Bem-vindo")
+                        Text(viewModel.isSignUp ? "Criar conta" : "Bem-vindo")
                             .font(SBFont.display(30))
                             .tracking(-0.5)
                             .foregroundStyle(SBColor.textPrimary)
-                        Text("Faca login para continuar estudando")
+                        Text(viewModel.isSignUp ? "Crie sua conta gratis para comecar" : "Faca login para continuar estudando")
                             .font(SBFont.body(16))
                             .foregroundStyle(SBColor.textSecondary)
                             .multilineTextAlignment(.center)
@@ -83,8 +99,28 @@ public struct LoginView: View {
                             .foregroundStyle(SBColor.accent)
                     }
 
-                    SBPrimaryButton(viewModel.loading ? "Entrando..." : "Entrar", size: .lg, disabled: viewModel.loading) {
-                        viewModel.login(onSuccess: onLoginSuccess)
+                    SBPrimaryButton(
+                        viewModel.loading
+                            ? (viewModel.isSignUp ? "Criando..." : "Entrando...")
+                            : (viewModel.isSignUp ? "Criar conta" : "Entrar"),
+                        size: .lg,
+                        disabled: viewModel.loading
+                    ) {
+                        viewModel.submit(onSuccess: onLoginSuccess)
+                    }
+
+                    if let error = viewModel.errorMessage {
+                        HStack(spacing: 8) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundStyle(SBColor.error)
+                            Text(error)
+                                .font(SBFont.body(13))
+                                .foregroundStyle(SBColor.error)
+                        }
+                        .padding(12)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(SBColor.errorBg)
+                        .clipShape(RoundedRectangle(cornerRadius: SBRadius.input, style: .continuous))
                     }
 
                     HStack(spacing: 10) {
@@ -116,12 +152,17 @@ public struct LoginView: View {
                     .buttonStyle(SBPressableButtonStyle())
 
                     HStack(spacing: 4) {
-                        Text("Nao tem conta?")
+                        Text(viewModel.isSignUp ? "Ja tem conta?" : "Nao tem conta?")
                             .font(SBFont.body(14))
                             .foregroundStyle(SBColor.textSecondary)
-                        Button("Criar conta gratis") {}
-                            .font(SBFont.label(14))
-                            .foregroundStyle(SBColor.accent)
+                        Button(viewModel.isSignUp ? "Fazer login" : "Criar conta gratis") {
+                            withAnimation(SBMotion.quick) {
+                                viewModel.isSignUp.toggle()
+                                viewModel.errorMessage = nil
+                            }
+                        }
+                        .font(SBFont.label(14))
+                        .foregroundStyle(SBColor.accent)
                     }
                     .padding(.top, 4)
 

@@ -1,14 +1,36 @@
 import SwiftUI
 
+#if canImport(UIKit)
+import UIKit
+
+private func _adaptive(
+    _ light: (CGFloat, CGFloat, CGFloat),
+    _ dark: (CGFloat, CGFloat, CGFloat)
+) -> Color {
+    Color(UIColor { tc in
+        let c = tc.userInterfaceStyle == .dark ? dark : light
+        return UIColor(red: c.0, green: c.1, blue: c.2, alpha: 1)
+    })
+}
+#else
+private func _adaptive(
+    _ light: (CGFloat, CGFloat, CGFloat),
+    _ dark: (CGFloat, CGFloat, CGFloat)
+) -> Color {
+    Color(red: light.0, green: light.1, blue: light.2)
+}
+#endif
+
 public enum SBColor {
-    public static let background = Color(red: 0.969, green: 0.980, blue: 0.992)
-    public static let surface = Color.white
-    public static let border = Color(red: 0.902, green: 0.929, blue: 0.961)
-    public static let textPrimary = Color(red: 0.043, green: 0.059, blue: 0.078)
-    public static let textSecondary = Color(red: 0.294, green: 0.357, blue: 0.416)
-    public static let textTertiary = Color(red: 0.463, green: 0.533, blue: 0.604)
-    public static let inputBg = Color(red: 0.949, green: 0.965, blue: 0.984)
-    public static let inputBorder = Color(red: 0.882, green: 0.918, blue: 0.957)
+    public static let background    = _adaptive((0.969, 0.980, 0.992), (0.067, 0.071, 0.090))
+    public static let surface       = _adaptive((1.000, 1.000, 1.000), (0.110, 0.114, 0.141))
+    public static let border        = _adaptive((0.902, 0.929, 0.961), (0.200, 0.208, 0.243))
+    public static let textPrimary   = _adaptive((0.043, 0.059, 0.078), (0.957, 0.961, 0.976))
+    public static let textSecondary = _adaptive((0.294, 0.357, 0.416), (0.651, 0.671, 0.718))
+    public static let textTertiary  = _adaptive((0.463, 0.533, 0.604), (0.451, 0.471, 0.522))
+    public static let inputBg       = _adaptive((0.949, 0.965, 0.984), (0.130, 0.134, 0.161))
+    public static let inputBorder   = _adaptive((0.882, 0.918, 0.957), (0.220, 0.224, 0.263))
+
     public static let accent = Color(red: 0.176, green: 0.584, blue: 0.855)
     public static let teal = Color(red: 0.251, green: 0.878, blue: 0.816)
     public static let success = Color(red: 0.067, green: 0.600, blue: 0.557)
@@ -43,28 +65,53 @@ public enum SBSpacing {
 }
 
 public enum SBFont {
+    private enum Scale {
+        case display, title, body, label, stat, code
+
+        #if canImport(UIKit)
+        var textStyle: UIFont.TextStyle {
+            switch self {
+            case .display: .largeTitle
+            case .title:   .headline
+            case .body:    .body
+            case .label:   .subheadline
+            case .stat:    .headline
+            case .code:    .footnote
+            }
+        }
+        #endif
+    }
+
+    private static func scaled(_ size: CGFloat, _ scale: Scale) -> CGFloat {
+        #if canImport(UIKit)
+        UIFontMetrics(forTextStyle: scale.textStyle).scaledValue(for: size)
+        #else
+        size
+        #endif
+    }
+
     public static func display(_ size: CGFloat) -> Font {
-        .system(size: size, weight: .heavy, design: .default)
+        .system(size: scaled(size, .display), weight: .heavy)
     }
 
     public static func title(_ size: CGFloat) -> Font {
-        .system(size: size, weight: .bold, design: .default)
+        .system(size: scaled(size, .title), weight: .bold)
     }
 
     public static func body(_ size: CGFloat) -> Font {
-        .system(size: size, weight: .regular, design: .default)
+        .system(size: scaled(size, .body), weight: .regular)
     }
 
     public static func label(_ size: CGFloat) -> Font {
-        .system(size: size, weight: .semibold, design: .default)
+        .system(size: scaled(size, .label), weight: .semibold)
     }
 
     public static func stat(_ size: CGFloat) -> Font {
-        .system(size: size, weight: .heavy, design: .rounded)
+        .system(size: scaled(size, .stat), weight: .heavy, design: .rounded)
     }
 
     public static func code(_ size: CGFloat) -> Font {
-        .system(size: size, weight: .medium, design: .monospaced)
+        .system(size: scaled(size, .code), weight: .medium, design: .monospaced)
     }
 }
 
@@ -112,7 +159,6 @@ public extension View {
 }
 
 #if canImport(UIKit)
-import UIKit
 
 public enum SBHaptics {
     public static func success() {

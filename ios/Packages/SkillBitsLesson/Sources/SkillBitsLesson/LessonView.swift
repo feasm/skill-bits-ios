@@ -209,6 +209,7 @@ public struct LessonReaderView: View {
                 audioProgress = speaking ? 0.8 : 0
             }
         }
+        .toolbar(.hidden, for: .navigationBar)
     }
 
     @ViewBuilder
