@@ -28,7 +28,7 @@ public enum XPService {
     public static func xpForQuiz(score: Int, quizFirst: Bool) -> Int {
         var xp = 30
         if score == 100 { xp += 50 }
-        if score == 100 && quizFirst { xp += 25 }
+        if score == 100 && quizFirst { xp += 75 }
         return xp
     }
 }

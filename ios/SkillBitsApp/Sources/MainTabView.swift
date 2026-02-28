@@ -17,11 +17,13 @@ struct MainTabView: View {
 
     @State private var selectedTab: TabItem = .courses
     @State private var selectedCourse: Course?
-    @State private var selectedModule: Module?
-    @State private var selectedLesson: Lesson?
+    @State private var activeModule: ModuleNavItem?
+    @State private var activeLesson: LessonNavItem?
     @State private var activeQuizIntro: QuizIntroSession?
     @State private var activeQuiz: QuizSession?
     @State private var quizResult: QuizResult?
+    @State private var pendingQuizSession: QuizSession?
+    @State private var pendingQuizResult: QuizResult?
     @State private var nextLessonState: NextLessonState?
     @State private var showPaywall = false
     @State private var showPurchaseSuccess = false
@@ -36,37 +38,34 @@ struct MainTabView: View {
                 }
                 .navigationDestination(item: $selectedCourse) { course in
                     CourseDetailView(course: course) { module in
-                        selectedModule = module
+                        activeModule = ModuleNavItem(course: course, module: module)
                     } startLesson: { module, lesson in
-                        selectedModule = module
-                        selectedLesson = lesson
+                        activeModule = ModuleNavItem(course: course, module: module)
+                        activeLesson = LessonNavItem(courseId: course.id, module: module, lesson: lesson)
                     }
                 }
-                .navigationDestination(item: $selectedModule) { module in
-                    if let course = selectedCourse {
-                        ModuleDetailView(course: course, module: module) { lesson in
-                            if course.accessTier == .premium {
-                                showPaywall = true
-                            } else {
-                                selectedLesson = lesson
-                            }
-                        } startQuiz: { quizFirst in
-                            if course.accessTier == .premium {
-                                showPaywall = true
-                            } else {
-                                activeQuizIntro = QuizIntroSession(moduleId: module.id)
-                            }
+                .navigationDestination(item: $activeModule) { nav in
+                    ModuleDetailView(course: nav.course, module: nav.module) { lesson in
+                        if nav.module.accessTier == .premium {
+                            showPaywall = true
+                        } else {
+                            activeLesson = LessonNavItem(courseId: nav.course.id, module: nav.module, lesson: lesson)
+                        }
+                    } startQuiz: { quizFirst in
+                        if nav.module.accessTier == .premium {
+                            showPaywall = true
+                        } else {
+                            activeQuizIntro = QuizIntroSession(moduleId: nav.module.id)
                         }
                     }
                 }
-                .navigationDestination(item: $selectedLesson) { lesson in
-                    if let course = selectedCourse, let module = selectedModule {
-                        LessonReaderView(viewModel: LessonViewModel(repo: env.lessonRepository), courseId: course.id, moduleId: module.id, lesson: lesson) {
-                            let next = nextLesson(in: module, currentLessonId: lesson.id)
-                            nextLessonState = NextLessonState(nextLesson: next)
-                        } onStartQuiz: {
-                            activeQuizIntro = QuizIntroSession(moduleId: module.id)
-                        }
+                .navigationDestination(item: $activeLesson) { nav in
+                    LessonReaderView(repo: env.lessonRepository, courseId: nav.courseId, moduleId: nav.module.id, lesson: nav.lesson) {
+                        Task { await refreshCourse() }
+                        let next = nextLesson(in: nav.module, currentLessonId: nav.lesson.id)
+                        nextLessonState = NextLessonState(nextLesson: next)
+                    } onStartQuiz: {
+                        activeQuizIntro = QuizIntroSession(moduleId: nav.module.id)
                     }
                 }
             }
@@ -81,44 +80,62 @@ struct MainTabView: View {
                     showPurchaseSuccess = false
                 }
             }
-            .sheet(item: $activeQuizIntro) { intro in
+            .sheet(item: $activeQuizIntro, onDismiss: {
+                if let pending = pendingQuizSession {
+                    pendingQuizSession = nil
+                    activeQuiz = pending
+                }
+            }) { intro in
                 QuizIntroView {
+                    pendingQuizSession = QuizSession(moduleId: intro.moduleId, quizFirst: false)
                     activeQuizIntro = nil
-                    runQuiz(moduleId: intro.moduleId, quizFirst: false)
                 } startQuizFirstMode: {
+                    pendingQuizSession = QuizSession(moduleId: intro.moduleId, quizFirst: true)
                     activeQuizIntro = nil
-                    runQuiz(moduleId: intro.moduleId, quizFirst: true)
                 }
             }
             .sheet(item: $nextLessonState) { state in
                 NextLessonView(nextLessonTitle: state.nextLesson?.title ?? "Modulo concluido") {
                     if let next = state.nextLesson {
-                        selectedLesson = next
+                        if let mod = activeModule {
+                            activeLesson = LessonNavItem(courseId: mod.course.id, module: mod.module, lesson: next)
+                        }
                     }
                     nextLessonState = nil
                 }
             }
-            .fullScreenCover(item: $activeQuiz) { quiz in
-                let vm = QuizViewModel(repo: env.quizRepository)
-                QuizQuestionView(viewModel: vm) { result in
-                    quizResult = result
+            .fullScreenCover(item: $activeQuiz, onDismiss: {
+                if let pending = pendingQuizResult {
+                    pendingQuizResult = nil
+                    quizResult = pending
+                }
+            }) { quiz in
+                QuizQuestionView(repo: env.quizRepository, moduleId: quiz.moduleId, quizFirst: quiz.quizFirst, onExit: {
+                    activeQuiz = nil
+                }) { result in
+                    pendingQuizResult = result
                     activeQuiz = nil
                 }
-                .onAppear {
-                    vm.load(moduleId: quiz.moduleId, quizFirst: quiz.quizFirst)
-                }
             }
-            .sheet(item: $quizResult) { result in
+            .sheet(item: $quizResult, onDismiss: {
+                if let pending = pendingQuizSession {
+                    pendingQuizSession = nil
+                    activeQuiz = pending
+                }
+            }) { result in
                 QuizResultView(result: result) {
                     Task {
+                        if result.passed { await refreshCourse() }
                         reviewPoints = (try? await env.quizRepository.fetchGuidedReview(moduleId: result.moduleId)) ?? []
                         await MainActor.run {
                             showGuidedReview = !reviewPoints.isEmpty
                         }
                     }
                 } onRetry: {
-                    runQuiz(moduleId: result.moduleId, quizFirst: result.quizFirst)
+                    pendingQuizSession = QuizSession(moduleId: result.moduleId, quizFirst: result.quizFirst)
+                    quizResult = nil
                 } onContinue: {
+                    if result.passed { Task { await refreshCourse() } }
                     quizResult = nil
                 }
             }
@@ -150,8 +167,10 @@ struct MainTabView: View {
 
             NavigationStack {
                 ProfileScreenView(viewModel: ProfileViewModel(repo: env.progressRepository)) {
-                    session.isLoggedIn = false
-                    session.onboardingCompleted = false
+                    withAnimation(SBMotion.springSmooth) {
+                        session.isLoggedIn = false
+                        session.onboardingCompleted = false
+                    }
                 }
             }
             .tabItem { Label("Perfil", systemImage: "person") }
@@ -162,10 +181,19 @@ struct MainTabView: View {
             SBHaptics.selection()
         }
     }
+}
 
-    private func runQuiz(moduleId: String, quizFirst: Bool) {
-        activeQuiz = QuizSession(moduleId: moduleId, quizFirst: quizFirst)
-    }
+private struct ModuleNavItem: Identifiable, Hashable {
+    let course: Course
+    let module: Module
+    var id: String { "\(course.id)|\(module.id)" }
+}
+
+private struct LessonNavItem: Identifiable, Hashable {
+    let courseId: String
+    let module: Module
+    let lesson: Lesson
+    var id: String { "\(courseId)|\(module.id)|\(lesson.id)" }
 }
 
 private struct QuizSession: Identifiable {
@@ -198,16 +226,21 @@ private struct MyStudyHost: View {
 }
 
 private extension MainTabView {
-    func moduleForLesson(in course: Course, lessonId: String) -> Module? {
-        course.modules.first(where: { module in
-            module.lessons.contains(where: { $0.id == lessonId })
-        })
-    }
-
     func nextLesson(in module: Module, currentLessonId: String) -> Lesson? {
         guard let index = module.lessons.firstIndex(where: { $0.id == currentLessonId }) else { return nil }
         guard index + 1 < module.lessons.count else { return nil }
         return module.lessons[index + 1]
     }
-}
 
+    func refreshCourse() async {
+        guard let courseId = selectedCourse?.id else { return }
+        guard let updated = try? await env.coursesRepository.fetchCourse(id: courseId) else { return }
+        await MainActor.run {
+            selectedCourse = updated
+            if let currentModuleId = activeModule?.module.id,
+               let updatedModule = updated.modules.first(where: { $0.id == currentModuleId }) {
+                activeModule = ModuleNavItem(course: updated, module: updatedModule)
+            }
+        }
+    }
+}

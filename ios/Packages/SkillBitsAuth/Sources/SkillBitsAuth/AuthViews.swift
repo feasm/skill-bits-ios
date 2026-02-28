@@ -196,6 +196,18 @@ public struct OnboardingView: View {
                         .font(SBFont.body(15))
                         .foregroundStyle(SBColor.textSecondary)
 
+                    sectionHeader(icon: "clock.fill", title: "Tempo por dia")
+                    HStack(spacing: 10) {
+                        goalChip(title: "15", subtitle: "minutos", selected: selectedGoalIndex == 0) {
+                            selectedGoalIndex = 0
+                            viewModel.dailyGoal = .minutes15
+                        }
+                        goalChip(title: "30", subtitle: "minutos", selected: selectedGoalIndex == 1) {
+                            selectedGoalIndex = 1
+                            viewModel.dailyGoal = .minutes30
+                        }
+                    }
+
                     sectionHeader(icon: "target", title: "Objetivo")
                     VStack(spacing: 10) {
                         ForEach(reasons) { reason in
@@ -232,18 +244,6 @@ public struct OnboardingView: View {
                             }
                             .clipShape(RoundedRectangle(cornerRadius: SBRadius.cardLg, style: .continuous))
                             .buttonStyle(SBPressableButtonStyle())
-                        }
-                    }
-
-                    sectionHeader(icon: "clock.fill", title: "Tempo por dia")
-                    HStack(spacing: 10) {
-                        goalChip(title: "15", subtitle: "minutos", selected: selectedGoalIndex == 0) {
-                            selectedGoalIndex = 0
-                            viewModel.dailyGoal = .minutes15
-                        }
-                        goalChip(title: "30", subtitle: "minutos", selected: selectedGoalIndex == 1) {
-                            selectedGoalIndex = 1
-                            viewModel.dailyGoal = .minutes30
                         }
                     }
                     .padding(.bottom, 92)

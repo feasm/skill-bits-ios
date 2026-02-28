@@ -1,0 +1,41 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "skillbitscore",
+          "kind" : "fileSystem",
+          "location" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore",
+          "name" : "SkillBitsCore"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore"
+        },
+        "subpath" : "skillbitscore"
+      },
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "skillbitsdesignsystem",
+          "kind" : "fileSystem",
+          "location" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsDesignSystem",
+          "name" : "SkillBitsDesignSystem"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsDesignSystem"
+        },
+        "subpath" : "skillbitsdesignsystem"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}

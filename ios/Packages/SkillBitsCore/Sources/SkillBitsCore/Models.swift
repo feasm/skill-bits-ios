@@ -37,8 +37,9 @@ public struct Module: Identifiable, Codable, Hashable, Sendable {
     public var quizAvailable: Bool
     public var quizCompleted: Bool
     public var quizScore: Int?
+    public let accessTier: AccessTier
 
-    public init(id: String, title: String, description: String, duration: String, lessons: [Lesson], quizAvailable: Bool, quizCompleted: Bool = false, quizScore: Int? = nil) {
+    public init(id: String, title: String, description: String, duration: String, lessons: [Lesson], quizAvailable: Bool, quizCompleted: Bool = false, quizScore: Int? = nil, accessTier: AccessTier = .free) {
         self.id = id
         self.title = title
         self.description = description
@@ -47,6 +48,7 @@ public struct Module: Identifiable, Codable, Hashable, Sendable {
         self.quizAvailable = quizAvailable
         self.quizCompleted = quizCompleted
         self.quizScore = quizScore
+        self.accessTier = accessTier
     }
 }
 
@@ -62,8 +64,20 @@ public struct Course: Identifiable, Codable, Hashable, Sendable {
     public let color1: String
     public let color2: String
     public let accessTier: AccessTier
+    public let instructor: String
     public var progress: Int
     public var modules: [Module]
+
+    public enum EffectiveAccess: String {
+        case free, partial, premium
+    }
+
+    public var effectiveAccess: EffectiveAccess {
+        let tiers = Set(modules.map(\.accessTier))
+        if tiers == [.free] { return .free }
+        if tiers == [.premium] { return .premium }
+        return .partial
+    }
 
     public init(
         id: String,
@@ -77,6 +91,7 @@ public struct Course: Identifiable, Codable, Hashable, Sendable {
         color1: String,
         color2: String,
         accessTier: AccessTier,
+        instructor: String = "Equipe SkillBits",
         progress: Int = 0,
         modules: [Module]
     ) {
@@ -91,6 +106,7 @@ public struct Course: Identifiable, Codable, Hashable, Sendable {
         self.color1 = color1
         self.color2 = color2
         self.accessTier = accessTier
+        self.instructor = instructor
         self.progress = progress
         self.modules = modules
     }

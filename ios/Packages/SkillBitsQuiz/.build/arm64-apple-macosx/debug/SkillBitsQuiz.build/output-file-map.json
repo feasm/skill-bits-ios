@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsQuiz.build/master.swiftdeps"
+  },
+  "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/Sources/SkillBitsQuiz/QuizViews.swift": {
+    "dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsQuiz.build/QuizViews.d",
+    "object": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsQuiz.build/QuizViews.swift.o",
+    "swiftmodule": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsQuiz.build/QuizViews~partial.swiftmodule",
+    "swift-dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsQuiz.build/QuizViews.swiftdeps"
+  }
+}

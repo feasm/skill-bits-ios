@@ -1,0 +1,17 @@
+{
+  "": {
+    "swift-dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsDesignSystem.build/master.swiftdeps"
+  },
+  "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsDesignSystem/Sources/SkillBitsDesignSystem/Components.swift": {
+    "dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsDesignSystem.build/Components.d",
+    "object": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsDesignSystem.build/Components.swift.o",
+    "swiftmodule": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsDesignSystem.build/Components~partial.swiftmodule",
+    "swift-dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsDesignSystem.build/Components.swiftdeps"
+  },
+  "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsDesignSystem/Sources/SkillBitsDesignSystem/DesignTokens.swift": {
+    "dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsDesignSystem.build/DesignTokens.d",
+    "object": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsDesignSystem.build/DesignTokens.swift.o",
+    "swiftmodule": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsDesignSystem.build/DesignTokens~partial.swiftmodule",
+    "swift-dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsDesignSystem.build/DesignTokens.swiftdeps"
+  }
+}

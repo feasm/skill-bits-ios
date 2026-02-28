@@ -10,6 +10,10 @@ public final class QuizViewModel {
     public var selectedAnswer: Int?
     public var confirmedAnswers: [Int] = []
     public var result: QuizResult?
+    public var isLoading = false
+    public var isSubmitting = false
+    public var loadErrorMessage: String?
+    public var submitErrorMessage: String?
     public var showInstantFeedback = false
     public var wasLastCorrect = false
     public var confirmedCurrent = false
@@ -22,15 +26,38 @@ public final class QuizViewModel {
     public func load(moduleId: String, quizFirst: Bool) {
         self.moduleId = moduleId
         self.quizFirst = quizFirst
+        isLoading = true
+        isSubmitting = false
+        loadErrorMessage = nil
+        submitErrorMessage = nil
         Task {
-            let data = (try? await repo.fetchQuiz(moduleId: moduleId)) ?? []
-            await MainActor.run {
-                self.questions = data
-                self.currentIndex = 0
-                self.selectedAnswer = nil
-                self.confirmedAnswers = []
-                self.result = nil
-                self.confirmedCurrent = false
+            do {
+                let data = try await repo.fetchQuiz(moduleId: moduleId)
+                await MainActor.run {
+                    self.questions = data
+                    self.currentIndex = 0
+                    self.selectedAnswer = nil
+                    self.confirmedAnswers = []
+                    self.result = nil
+                    self.confirmedCurrent = false
+                    self.showInstantFeedback = false
+                    self.isLoading = false
+                    if data.isEmpty {
+                        self.loadErrorMessage = "Nao foi possivel carregar o questionario."
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    self.questions = []
+                    self.currentIndex = 0
+                    self.selectedAnswer = nil
+                    self.confirmedAnswers = []
+                    self.result = nil
+                    self.confirmedCurrent = false
+                    self.showInstantFeedback = false
+                    self.isLoading = false
+                    self.loadErrorMessage = "Nao foi possivel carregar o questionario."
+                }
             }
         }
     }
@@ -54,6 +81,7 @@ public final class QuizViewModel {
         guard let selectedAnswer, let question = currentQuestion else { return }
         if confirmedCurrent { return }
         confirmedCurrent = true
+        submitErrorMessage = nil
         confirmedAnswers.append(selectedAnswer)
         wasLastCorrect = selectedAnswer == question.correctIndex
         showInstantFeedback = true
@@ -61,15 +89,44 @@ public final class QuizViewModel {
     }
 
     public func moveNext() {
-        confirmedCurrent = false
-        showInstantFeedback = false
-        selectedAnswer = nil
+        guard !isSubmitting else { return }
         if currentIndex + 1 < questions.count {
+            confirmedCurrent = false
+            showInstantFeedback = false
+            selectedAnswer = nil
             currentIndex += 1
         } else {
-            Task {
-                let value = try? await repo.submitQuiz(moduleId: moduleId, answers: confirmedAnswers, quizFirst: quizFirst)
-                await MainActor.run { self.result = value }
+            submitAnswers()
+        }
+    }
+
+    public func retryLoad() {
+        guard !moduleId.isEmpty else { return }
+        load(moduleId: moduleId, quizFirst: quizFirst)
+    }
+
+    public func retrySubmit() {
+        guard !moduleId.isEmpty else { return }
+        submitAnswers()
+    }
+
+    private func submitAnswers() {
+        guard !isSubmitting else { return }
+        isSubmitting = true
+        submitErrorMessage = nil
+        Task {
+            do {
+                let value = try await repo.submitQuiz(moduleId: moduleId, answers: confirmedAnswers, quizFirst: quizFirst)
+                await MainActor.run {
+                    self.result = value
+                    self.isSubmitting = false
+                }
+            } catch {
+                await MainActor.run {
+                    self.isSubmitting = false
+                    self.submitErrorMessage = "Nao foi possivel enviar suas respostas. Tente novamente."
+                    SBHaptics.error()
+                }
             }
         }
     }
@@ -147,11 +204,18 @@ public struct QuizIntroView: View {
 }
 
 public struct QuizQuestionView: View {
-    @Bindable var viewModel: QuizViewModel
+    @State private var viewModel: QuizViewModel
+    private let moduleId: String
+    private let quizFirst: Bool
+    public let onExit: () -> Void
     public let onFinish: (QuizResult) -> Void
+    @State private var showExitConfirmation = false
 
-    public init(viewModel: QuizViewModel, onFinish: @escaping (QuizResult) -> Void) {
-        self.viewModel = viewModel
+    public init(repo: QuizRepository, moduleId: String, quizFirst: Bool, onExit: @escaping () -> Void = {}, onFinish: @escaping (QuizResult) -> Void) {
+        self._viewModel = State(initialValue: QuizViewModel(repo: repo))
+        self.moduleId = moduleId
+        self.quizFirst = quizFirst
+        self.onExit = onExit
         self.onFinish = onFinish
     }
 
@@ -159,9 +223,17 @@ public struct QuizQuestionView: View {
         ZStack {
             SBColor.background.ignoresSafeArea()
             VStack(alignment: .leading, spacing: 14) {
-                if let question = viewModel.currentQuestion {
+                if viewModel.isLoading {
+                    loadingState
+                } else if let errorMessage = viewModel.loadErrorMessage {
+                    loadErrorState(message: errorMessage)
+                } else if let question = viewModel.currentQuestion {
                     HStack {
-                        SBIconButton(icon: "chevron.left") {}
+                        SBIconButton(icon: "chevron.left") {
+                            showExitConfirmation = true
+                        }
+                        .accessibilityLabel("Sair do questionario")
+                        .accessibilityHint("Abre confirmacao para sair e perder o progresso.")
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Pergunta \(viewModel.currentIndex + 1) de \(viewModel.questions.count)")
                                 .font(SBFont.label(13))
@@ -172,6 +244,8 @@ public struct QuizQuestionView: View {
                         Spacer()
                     }
                     SBProgressBar(value: Double(viewModel.currentIndex + (viewModel.confirmedCurrent ? 1 : 0)) / Double(max(viewModel.questions.count, 1)))
+                        .accessibilityLabel("Progresso do questionario")
+                        .accessibilityValue("Pergunta \(viewModel.currentIndex + 1) de \(max(viewModel.questions.count, 1))")
 
                     SBCard {
                         VStack(alignment: .leading, spacing: 10) {
@@ -194,6 +268,10 @@ public struct QuizQuestionView: View {
                         }
                         .buttonStyle(SBPressableButtonStyle())
                         .disabled(viewModel.confirmedCurrent)
+                        .accessibilityElement(children: .ignore)
+                        .accessibilityLabel(optionAccessibilityLabel(index: idx, option: option, question: question))
+                        .accessibilityHint(viewModel.confirmedCurrent ? "Resposta ja confirmada." : "Toque para selecionar esta resposta.")
+                        .accessibilityAddTraits(viewModel.selectedAnswer == idx ? .isSelected : [])
                     }
 
                     if viewModel.showInstantFeedback {
@@ -211,30 +289,115 @@ public struct QuizQuestionView: View {
                             }
                         }
                         .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .accessibilityElement(children: .combine)
                     }
 
                     Spacer()
                     if !viewModel.confirmedCurrent {
-                        SBPrimaryButton("Confirmar resposta", size: .lg, disabled: viewModel.selectedAnswer == nil) {
+                        SBPrimaryButton("Confirmar resposta", size: .lg, disabled: viewModel.selectedAnswer == nil || viewModel.isSubmitting) {
                             viewModel.confirmCurrent()
                         }
                     } else {
                         SBPrimaryButton(
                             viewModel.currentIndex + 1 == viewModel.questions.count ? "Finalizar" : "Proxima pergunta",
                             size: .lg,
-                            icon: "arrow.right"
+                            icon: "arrow.right",
+                            disabled: viewModel.isSubmitting
                         ) {
                             viewModel.moveNext()
                         }
+                        .accessibilityHint(viewModel.currentIndex + 1 == viewModel.questions.count ? "Envia o resultado final do quiz." : "Vai para a proxima pergunta.")
                     }
+
+                    if let submitErrorMessage = viewModel.submitErrorMessage {
+                        SBCard {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("Falha ao enviar")
+                                    .font(SBFont.label(14))
+                                    .foregroundStyle(SBColor.error)
+                                Text(submitErrorMessage)
+                                    .font(SBFont.body(13))
+                                    .foregroundStyle(SBColor.textSecondary)
+                                SBOutlineButton("Tentar novamente") {
+                                    viewModel.retrySubmit()
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    loadErrorState(message: "Nao encontramos perguntas para este modulo.")
                 }
             }
             .padding(20)
         }
         .animation(SBMotion.quick, value: viewModel.showInstantFeedback)
+        .onAppear { viewModel.load(moduleId: moduleId, quizFirst: quizFirst) }
+        .alert("Sair do questionario?", isPresented: $showExitConfirmation) {
+            Button("Cancelar", role: .cancel) {}
+            Button("Sair", role: .destructive) { onExit() }
+        } message: {
+            Text("Seu progresso atual sera perdido.")
+        }
         .onChange(of: viewModel.result) { _, newValue in
             if let newValue { onFinish(newValue) }
         }
+    }
+
+    private var loadingState: some View {
+        VStack(spacing: 12) {
+            Spacer()
+            ProgressView()
+                .progressViewStyle(.circular)
+            Text("Carregando questionario...")
+                .font(SBFont.body(14))
+                .foregroundStyle(SBColor.textSecondary)
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Carregando questionario")
+    }
+
+    private func loadErrorState(message: String) -> some View {
+        VStack(spacing: 12) {
+            Spacer()
+            SBCard {
+                VStack(spacing: 10) {
+                    Image(systemName: "wifi.exclamationmark")
+                        .foregroundStyle(SBColor.error)
+                    Text("Nao foi possivel abrir o quiz")
+                        .font(SBFont.title(17))
+                    Text(message)
+                        .font(SBFont.body(13))
+                        .foregroundStyle(SBColor.textSecondary)
+                        .multilineTextAlignment(.center)
+                    SBPrimaryButton("Tentar novamente", size: .md) {
+                        viewModel.retryLoad()
+                    }
+                }
+            }
+            SBSecondaryButton("Sair do questionario") {
+                onExit()
+            }
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    private func optionAccessibilityLabel(index: Int, option: String, question: QuizQuestion) -> String {
+        let letters = ["A", "B", "C", "D", "E"]
+        let letter = index < letters.count ? letters[index] : "\(index + 1)"
+        let selected = viewModel.selectedAnswer == index
+        if !viewModel.confirmedCurrent {
+            return "Opcao \(letter). \(option). \(selected ? "Selecionada." : "Nao selecionada.")"
+        }
+        if index == question.correctIndex {
+            return "Opcao \(letter). \(option). Resposta correta."
+        }
+        if selected {
+            return "Opcao \(letter). \(option). Sua resposta, incorreta."
+        }
+        return "Opcao \(letter). \(option)."
     }
 
     private func optionRow(index: Int, option: String, question: QuizQuestion) -> some View {
@@ -303,6 +466,8 @@ public struct QuizResultView: View {
             ScrollView {
                 VStack(spacing: 14) {
                     SBScoreCircle(score: result.score)
+                        .accessibilityLabel("Pontuacao final")
+                        .accessibilityValue("\(result.score) de 100")
                     SBBadge(
                         result.passed ? "Aprovado" : "Reprovado",
                         kind: .custom(

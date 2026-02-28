@@ -333,6 +333,7 @@ public struct SBBadge: View {
     public enum Kind {
         case premium
         case free
+        case partial
         case level(String)
         case custom(background: Color, text: Color)
     }
@@ -360,6 +361,7 @@ public struct SBBadge: View {
         switch kind {
         case .premium: SBColor.accent.opacity(0.12)
         case .free: Color(red: 0.220, green: 0.937, blue: 0.490).opacity(0.14)
+        case .partial: Color.orange.opacity(0.12)
         case .level(let value):
             colorForLevel(value).opacity(0.14)
         case .custom(let background, _):
@@ -371,6 +373,7 @@ public struct SBBadge: View {
         switch kind {
         case .premium: SBColor.accent
         case .free: SBColor.success
+        case .partial: .orange
         case .level(let value): colorForLevel(value)
         case .custom(_, let text):
             text

@@ -52,21 +52,9 @@ public struct CoursesView: View {
             SBColor.background.ignoresSafeArea()
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
-                    HStack(alignment: .top) {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Ola, Rafael")
-                                .font(SBFont.body(13))
-                                .foregroundStyle(SBColor.textSecondary)
-                            Text("Cursos")
-                                .font(SBFont.display(30))
-                                .tracking(-0.5)
-                        }
-                        Spacer()
-                        Circle()
-                            .fill(LinearGradient.skillBits)
-                            .frame(width: 40, height: 40)
-                            .overlay(Text("R").font(SBFont.label(16)).foregroundStyle(.white))
-                    }
+                    Text("Cursos")
+                        .font(SBFont.display(30))
+                        .tracking(-0.5)
 
                     HStack(spacing: 10) {
                         SBTextField("Buscar cursos", icon: "magnifyingglass", text: $viewModel.search)
@@ -154,8 +142,8 @@ public struct CoursesView: View {
                     }
                     Spacer()
                     SBBadge(
-                        course.accessTier == .free ? "Gratis" : "Premium",
-                        kind: course.accessTier == .free ? .free : .premium
+                        badgeText(for: course),
+                        kind: badgeKind(for: course)
                     )
                 }
 
@@ -178,6 +166,22 @@ public struct CoursesView: View {
                 .font(SBFont.body(11))
                 .foregroundStyle(SBColor.textTertiary)
             }
+        }
+    }
+
+    private func badgeText(for course: Course) -> String {
+        switch course.effectiveAccess {
+        case .free: "Gratis"
+        case .partial: "Parcial"
+        case .premium: "Premium"
+        }
+    }
+
+    private func badgeKind(for course: Course) -> SBBadge.Kind {
+        switch course.effectiveAccess {
+        case .free: .free
+        case .partial: .partial
+        case .premium: .premium
         }
     }
 
@@ -274,9 +278,13 @@ public struct CourseDetailView: View {
                                     )
                                 )
                                 .frame(width: 44, height: 44)
-                                .overlay(Text("R").font(SBFont.label(16)).foregroundStyle(.white))
+                                .overlay(
+                                    Text(String(course.instructor.prefix(1)))
+                                        .font(SBFont.label(16))
+                                        .foregroundStyle(.white)
+                                )
                             VStack(alignment: .leading, spacing: 1) {
-                                Text("Rafael Oliveira")
+                                Text(course.instructor)
                                     .font(SBFont.label(14))
                                 Text("Instrutor principal")
                                     .font(SBFont.body(12))
@@ -343,6 +351,11 @@ public struct CourseDetailView: View {
                                 .lineLimit(1)
                         }
                         Spacer()
+                        if module.accessTier == .premium {
+                            Image(systemName: "lock.fill")
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(SBColor.accent)
+                        }
                         Image(systemName: "chevron.right")
                             .font(.system(size: 12, weight: .bold))
                             .foregroundStyle(SBColor.textTertiary)

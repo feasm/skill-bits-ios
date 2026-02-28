@@ -1,0 +1,17 @@
+{
+  "": {
+    "swift-dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsCore.build/master.swiftdeps"
+  },
+  "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Models.swift": {
+    "dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Models.d",
+    "object": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Models.swift.o",
+    "swiftmodule": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Models~partial.swiftmodule",
+    "swift-dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Models.swiftdeps"
+  },
+  "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsCore/Sources/SkillBitsCore/Repositories.swift": {
+    "dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Repositories.d",
+    "object": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Repositories.swift.o",
+    "swiftmodule": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Repositories~partial.swiftmodule",
+    "swift-dependencies": "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsCore.build/Repositories.swiftdeps"
+  }
+}

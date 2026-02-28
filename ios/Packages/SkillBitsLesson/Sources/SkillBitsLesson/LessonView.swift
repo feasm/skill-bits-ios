@@ -51,7 +51,7 @@ public final class LessonViewModel {
 }
 
 public struct LessonReaderView: View {
-    @Bindable var viewModel: LessonViewModel
+    @State private var viewModel: LessonViewModel
     public let courseId: String
     public let moduleId: String
     public let lesson: Lesson
@@ -64,8 +64,8 @@ public struct LessonReaderView: View {
     @State private var audioProgress: Double = 0
     @Environment(\.dismiss) private var dismiss
 
-    public init(viewModel: LessonViewModel, courseId: String, moduleId: String, lesson: Lesson, onComplete: @escaping () -> Void, onStartQuiz: @escaping () -> Void) {
-        self.viewModel = viewModel
+    public init(repo: LessonRepository, courseId: String, moduleId: String, lesson: Lesson, onComplete: @escaping () -> Void, onStartQuiz: @escaping () -> Void) {
+        self._viewModel = State(initialValue: LessonViewModel(repo: repo))
         self.courseId = courseId
         self.moduleId = moduleId
         self.lesson = lesson
@@ -179,15 +179,26 @@ public struct LessonReaderView: View {
                     }
                     .buttonStyle(SBPressableButtonStyle())
 
-                    HStack {
-                        Button("-") { viewModel.speed = max(0.8, viewModel.speed - 0.25) }
-                        Spacer()
-                        Text(String(format: "%.2fx", viewModel.speed))
-                            .font(SBFont.stat(20))
-                        Spacer()
-                        Button("+") { viewModel.speed = min(2.0, viewModel.speed + 0.25) }
+                    HStack(spacing: 10) {
+                        ForEach([Float(1.0), 1.25, 1.5], id: \.self) { speed in
+                            Button {
+                                viewModel.speed = speed
+                            } label: {
+                                Text(speed == 1.0 ? "1x" : String(format: "%.2gx", speed))
+                                    .font(SBFont.label(15))
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 42)
+                                    .background(viewModel.speed == speed ? AnyShapeStyle(LinearGradient.skillBits) : AnyShapeStyle(SBColor.surface))
+                                    .foregroundStyle(viewModel.speed == speed ? .white : SBColor.textSecondary)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(viewModel.speed == speed ? Color.clear : SBColor.border, lineWidth: 1)
+                                    )
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
-                    .font(SBFont.label(18))
                 }
             }
             .presentationDetents([.medium])

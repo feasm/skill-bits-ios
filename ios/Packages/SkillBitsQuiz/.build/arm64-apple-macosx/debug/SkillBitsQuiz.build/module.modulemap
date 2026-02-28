@@ -1,0 +1,4 @@
+module SkillBitsQuiz {
+    header "/Users/glance/Documents/Projects/Personal/skill-bits-ios/ios/Packages/SkillBitsQuiz/.build/arm64-apple-macosx/debug/SkillBitsQuiz.build/SkillBitsQuiz-Swift.h"
+    requires objc
+}
